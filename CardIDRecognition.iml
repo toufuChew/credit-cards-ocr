@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module org.jetbrains.idea.maven.project.MavenProjectsManager.isMavenModule="true" type="JAVA_MODULE" version="4">
+  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_8">
+    <output url="file://$MODULE_DIR$/target/classes" />
+    <output-test url="file://$MODULE_DIR$/target/test-classes" />
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/src/main/java" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/main/resources" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/test/java" isTestSource="true" />
+      <excludeFolder url="file://$MODULE_DIR$/target" />
+    </content>
+    <orderEntry type="jdk" jdkName="1.8" jdkType="JavaSDK" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="opencv-343" level="project" />
+    <orderEntry type="library" name="Maven: org.bytedeco.javacpp-presets:tesseract-platform:4.0.0-1.4.4" level="project" />
+    <orderEntry type="library" name="Maven: org.bytedeco.javacpp-presets:leptonica-platform:1.77.0-1.4.4" level="project" />
+    <orderEntry type="library" name="Maven: org.bytedeco.javacpp-presets:leptonica:1.77.0-1.4.4" level="project" />
+    <orderEntry type="library" name="Maven: org.bytedeco.javacpp-presets:leptonica:android-arm:1.77.0-1.4.4" level="project" />
+    <orderEntry type="library" name="Maven: org.bytedeco.javacpp-presets:leptonica:android-arm64:1.77.0-1.4.4" level="project" />
+    <orderEntry type="library" name="Maven: org.bytedeco.javacpp-presets:leptonica:android-x86:1.77.0-1.4.4" level="project" />
+    <orderEntry type="library" name="Maven: org.bytedeco.javacpp-presets:leptonica:android-x86_64:1.77.0-1.4.4" level="project" />
+    <orderEntry type="library" name="Maven: org.bytedeco.javacpp-presets:leptonica:linux-x86:1.77.0-1.4.4" level="project" />
+    <orderEntry type="library" name="Maven: org.bytedeco.javacpp-presets:leptonica:linux-x86_64:1.77.0-1.4.4" level="project" />
+    <orderEntry type="library" name="Maven: org.bytedeco.javacpp-presets:leptonica:linux-armhf:1.77.0-1.4.4" level="project" />
+    <orderEntry type="library" name="Maven: org.bytedeco.javacpp-presets:leptonica:linux-ppc64le:1.77.0-1.4.4" level="project" />
+    <orderEntry type="library" name="Maven: org.bytedeco.javacpp-presets:leptonica:macosx-x86_64:1.77.0-1.4.4" level="project" />
+    <orderEntry type="library" name="Maven: org.bytedeco.javacpp-presets:leptonica:windows-x86:1.77.0-1.4.4" level="project" />
+    <orderEntry type="library" name="Maven: org.bytedeco.javacpp-presets:leptonica:windows-x86_64:1.77.0-1.4.4" level="project" />
+    <orderEntry type="library" name="Maven: org.bytedeco.javacpp-presets:tesseract:4.0.0-1.4.4" level="project" />
+    <orderEntry type="library" name="Maven: org.bytedeco:javacpp:1.4.4" level="project" />
+    <orderEntry type="library" name="Maven: org.bytedeco.javacpp-presets:tesseract:android-arm:4.0.0-1.4.4" level="project" />
+    <orderEntry type="library" name="Maven: org.bytedeco.javacpp-presets:tesseract:android-arm64:4.0.0-1.4.4" level="project" />
+    <orderEntry type="library" name="Maven: org.bytedeco.javacpp-presets:tesseract:android-x86:4.0.0-1.4.4" level="project" />
+    <orderEntry type="library" name="Maven: org.bytedeco.javacpp-presets:tesseract:android-x86_64:4.0.0-1.4.4" level="project" />
+    <orderEntry type="library" name="Maven: org.bytedeco.javacpp-presets:tesseract:linux-x86:4.0.0-1.4.4" level="project" />
+    <orderEntry type="library" name="Maven: org.bytedeco.javacpp-presets:tesseract:linux-x86_64:4.0.0-1.4.4" level="project" />
+    <orderEntry type="library" name="Maven: org.bytedeco.javacpp-presets:tesseract:linux-armhf:4.0.0-1.4.4" level="project" />
+    <orderEntry type="library" name="Maven: org.bytedeco.javacpp-presets:tesseract:linux-ppc64le:4.0.0-1.4.4" level="project" />
+    <orderEntry type="library" name="Maven: org.bytedeco.javacpp-presets:tesseract:macosx-x86_64:4.0.0-1.4.4" level="project" />
+    <orderEntry type="library" name="Maven: org.bytedeco.javacpp-presets:tesseract:windows-x86:4.0.0-1.4.4" level="project" />
+    <orderEntry type="library" name="Maven: org.bytedeco.javacpp-presets:tesseract:windows-x86_64:4.0.0-1.4.4" level="project" />
+    <orderEntry type="library" name="Maven: com.github.haifengl:smile-math:1.5.0" level="project" />
+    <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.7.25" level="project" />
+  </component>
+</module>
