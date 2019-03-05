@@ -47,6 +47,9 @@ public class CVCluster {
         }
 
         public double[] pixelsScale(Mat mat){
+            /**
+             * resize again to speed up calc
+             */
             mat = CVGrayTransfer.resizeMat(mat, 512, false);
             int row = mat.rows();
             int col = mat.cols();

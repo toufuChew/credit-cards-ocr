@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="99698a85-c4c2-4622-89f7-faac30a2dcc5" name="Default" comment="" />
+    <list default="true" id="99698a85-c4c2-4622-89f7-faac30a2dcc5" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cvOverride/CVCluster.java" afterPath="$PROJECT_DIR$/src/main/java/cvOverride/CVCluster.java" />
+    </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -30,7 +33,7 @@
       <file leaf-file-name="CVMain.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/cvOverride/CVMain.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="43">
+            <state relative-caret-position="-399">
               <caret line="27" column="39" lean-forward="true" selection-start-line="27" selection-start-column="39" selection-end-line="27" selection-end-column="39" />
               <folding />
             </state>
@@ -40,8 +43,8 @@
       <file leaf-file-name="CVCluster.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/cvOverride/CVCluster.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="275">
-              <caret line="55" column="34" lean-forward="true" selection-start-line="55" selection-start-column="34" selection-end-line="55" selection-end-column="34" />
+            <state relative-caret-position="126">
+              <caret line="50" column="44" lean-forward="false" selection-start-line="50" selection-start-column="44" selection-end-line="50" selection-end-column="44" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -49,11 +52,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CVRegion.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="CVRegion.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/cvOverride/CVRegion.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="334">
-              <caret line="330" column="40" lean-forward="true" selection-start-line="330" selection-start-column="40" selection-end-line="330" selection-end-column="40" />
+            <state relative-caret-position="152">
+              <caret line="224" column="15" lean-forward="false" selection-start-line="224" selection-start-column="8" selection-end-line="224" selection-end-column="18" />
               <folding>
                 <element signature="e#341#342#0" expanded="true" />
                 <element signature="e#371#372#0" expanded="true" />
@@ -62,11 +65,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ImgSeparator.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="ImgSeparator.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/cvImgUtil/ImgSeparator.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="171">
-              <caret line="530" column="0" lean-forward="false" selection-start-line="525" selection-start-column="0" selection-end-line="530" selection-end-column="0" />
+            <state relative-caret-position="47">
+              <caret line="433" column="16" lean-forward="false" selection-start-line="433" selection-start-column="16" selection-end-line="433" selection-end-column="16" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="method#localCombine#0;class#ImgSeparator#0" expanded="false" />
@@ -139,10 +142,10 @@
         <option value="$PROJECT_DIR$/src/main/java/cvOverride/DigitSeparator.java" />
         <option value="$PROJECT_DIR$/src/main/java/cvOverride/CVGrayTransfer.java" />
         <option value="$PROJECT_DIR$/src/main/java/debug/Debug.java" />
-        <option value="$PROJECT_DIR$/src/main/java/cvOverride/CVCluster.java" />
         <option value="$PROJECT_DIR$/src/main/java/cvOverride/CVRegion.java" />
         <option value="$PROJECT_DIR$/src/main/java/cvImgUtil/ImgSeparator.java" />
         <option value="$PROJECT_DIR$/src/main/java/cvOverride/CVMain.java" />
+        <option value="$PROJECT_DIR$/src/main/java/cvOverride/CVCluster.java" />
       </list>
     </option>
   </component>
@@ -1018,12 +1021,12 @@
       <workItem from="1546514570004" duration="5756000" />
       <workItem from="1549723581439" duration="7322000" />
       <workItem from="1550375109574" duration="11242000" />
-      <workItem from="1550546183727" duration="227592000" />
+      <workItem from="1550546183727" duration="228968000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="383104000" />
+    <option name="totallyTimeSpent" value="384480000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1476,28 +1479,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cvOverride/CVCluster.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="275">
-          <caret line="55" column="34" lean-forward="true" selection-start-line="55" selection-start-column="34" selection-end-line="55" selection-end-column="34" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cvImgUtil/ImgSeparator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="171">
-          <caret line="530" column="0" lean-forward="false" selection-start-line="525" selection-start-column="0" selection-end-line="530" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#localCombine#0;class#ImgSeparator#0" expanded="false" />
-            <marker date="1551776016109" expanded="true" signature="10756:10853" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/imgToText/TessReg.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="41">
@@ -1506,9 +1487,19 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cvOverride/CVCluster.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="126">
+          <caret line="50" column="44" lean-forward="false" selection-start-line="50" selection-start-column="44" selection-end-line="50" selection-end-column="44" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/cvOverride/CVMain.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="43">
+        <state relative-caret-position="-399">
           <caret line="27" column="39" lean-forward="true" selection-start-line="27" selection-start-column="39" selection-end-line="27" selection-end-column="39" />
           <folding />
         </state>
@@ -1516,11 +1507,23 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/cvOverride/CVRegion.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="334">
-          <caret line="330" column="40" lean-forward="true" selection-start-line="330" selection-start-column="40" selection-end-line="330" selection-end-column="40" />
+        <state relative-caret-position="152">
+          <caret line="224" column="15" lean-forward="false" selection-start-line="224" selection-start-column="8" selection-end-line="224" selection-end-column="18" />
           <folding>
             <element signature="e#341#342#0" expanded="true" />
             <element signature="e#371#372#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cvImgUtil/ImgSeparator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="47">
+          <caret line="433" column="16" lean-forward="false" selection-start-line="433" selection-start-column="16" selection-end-line="433" selection-end-column="16" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#localCombine#0;class#ImgSeparator#0" expanded="false" />
+            <marker date="1551776016109" expanded="true" signature="10756:10853" ph="{...}" />
           </folding>
         </state>
       </provider>
