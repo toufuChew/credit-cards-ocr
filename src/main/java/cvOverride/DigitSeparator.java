@@ -10,5 +10,5 @@ import java.util.List;
  */
 public interface DigitSeparator {
 
-    void digitSeparate(CVCluster.ClusterType clusterType);
+    void digitSeparate(CVFontType.FontType clusterType) throws Exception;
 }

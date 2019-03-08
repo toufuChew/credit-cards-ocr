@@ -1,14 +1,12 @@
 package cvImgUtil;
 
-import cvOverride.CVCluster;
-import cvOverride.DigitSeparator;
-import cvOverride.RectFilter;
-import cvOverride.RectSeparator;
+import cvOverride.*;
 import debug.Debug;
 import org.opencv.core.*;
 import org.opencv.imgproc.Imgproc;
 
 import java.util.*;
+import java.util.concurrent.ExecutionException;
 
 /**
  * Created by chenqiu on 2/21/19.
@@ -18,17 +16,16 @@ public class ImgSeparator implements RectSeparator, DigitSeparator {
 
     private List<Mat> matListOfDigit;
 
-    protected Rect rectOfDigitRow;
+    private Rect rectOfDigitRow;
 
     public ImgSeparator(Mat graySrc) {
         this.grayMat = graySrc;
     }
 
     @Override
-    public List<Rect> rectSeparate(Mat src, Rect region) {
+    public List<Rect> rectSeparate(Mat src, Rect region) throws Exception {
         if (src.channels() != 1) {
-            System.err.println("error: image.channels() != 1 in function 'rectSeparate(Mat m,Rect r)'");
-            System.exit(1);
+            throw new Exception("error: image.channels() != 1 in function 'rectSeparate(Mat m,Rect r)'");
         }
         // fist step, remove abnormal height area, fill with 0
         int cols = src.cols();
@@ -67,8 +64,8 @@ public class ImgSeparator implements RectSeparator, DigitSeparator {
     }
 
     /**
-     * return rect scanned bounding, remove to avoid scanning overtimes
-     * if find failed, out.x = out.y = -1
+     * return rect scanned bounding, remove it for avoiding scanning overtimes
+     * <p>if find failed, out.x = out.y = -1</p>
      * @param buff
      * @param cols
      * @param rows
@@ -161,13 +158,13 @@ public class ImgSeparator implements RectSeparator, DigitSeparator {
             my2 = (y2[1][b] + y2[1][b - 1]) >> 1;
         }
 
-        upperY /= cnt;
-        lowerY /= cnt;
-        Debug.log("upper: " + upperY + ", lower: " + lowerY);
         Rect scanRect = new Rect(region.x, my1, region.width, my2 - my1 + 1);
         if (next < 1) {
             return scanRect;
         }
+        upperY /= cnt;
+        lowerY /= cnt;
+        Debug.log("upper: " + upperY + ", lower: " + lowerY);
         out.x = region.x;
         out.y = upperY;
         out.width = region.width;
@@ -371,13 +368,16 @@ public class ImgSeparator implements RectSeparator, DigitSeparator {
             System.err.println("ImgSeparator error: cutting.size() cannot be odd number in function getDigitWidth(List<Integer> c, List<Integer> cntArea)");
             System.exit(1);
         }
+        final int window = 5;
         int [][]width = new int[2][cutting.size() >> 1];
+        if (width[0].length <= window) {
+            return -1;
+        }
         for (int i = 1, j = 0; i < cutting.size(); i+= 2, j++) {
             width[1][j] = cutting.get(i) - cutting.get(i - 1);
             width[0][j] = j;
         }
         sortMap(width);
-        final int window = 5;
         int ms = -1;
         float m = Float.MAX_VALUE;
         int sum = 0;
@@ -427,7 +427,7 @@ public class ImgSeparator implements RectSeparator, DigitSeparator {
 
     /**
      * spilt each digit of id region
-     * @param m
+     * @param m binary image of id region
      * @throws Exception
      */
     public void setSingleDigits(Mat m) throws Exception {
@@ -457,8 +457,9 @@ public class ImgSeparator implements RectSeparator, DigitSeparator {
                 sum += Imgproc.contourArea(mp);
             contains.add(sum);
         }
-        System.out.println(cutting.size());
         int ref = getDigitWidth(cutting, contains);
+        if (ref < 0)
+            return;
         simpleCombine(cutting, contains, ref);
 
         for (int i = 1; i < cutting.size(); i++) {
@@ -496,19 +497,17 @@ public class ImgSeparator implements RectSeparator, DigitSeparator {
     }
 
     @Override
-    public void digitSeparate(CVCluster.ClusterType clusterType) {
+    public void digitSeparate(CVFontType.FontType clusterType) throws Exception {
         if (grayMat.type() != CvType.CV_8UC1) {
-            System.err.println("ImgSeparator error: digitSeparate supports only CV_8UC1 images when mode == " + CvType.typeToString(grayMat.type()));
-            System.exit(1);
+            throw new Exception("ImgSeparator error: digitSeparate supports only CV_8UC1 images when mode == " + CvType.typeToString(grayMat.type()));
         }
         Mat src = grayMat.clone();
         if (this.rectOfDigitRow == null) {
-            System.err.println("ImgSeparator error: digitSeparate need to set this.rectOfDigitRow which is null");
-            System.exit(1);
+            throw new Exception("ImgSeparator error: digitSeparate need to set this.rectOfDigitRow which is null");
         }
         int thresh = 60;
         int reverse = Imgproc.THRESH_BINARY_INV;
-        if (clusterType == CVCluster.ClusterType.LIGHT_FONT) {
+        if (clusterType == CVFontType.FontType.LIGHT_FONT) {
             thresh = 40;
             reverse = Imgproc.THRESH_BINARY;
             Imgproc.morphologyEx(src, src, Imgproc.MORPH_TOPHAT, Imgproc.getStructuringElement(Imgproc.MORPH_RECT, new Size(9, 3)));
@@ -519,10 +518,11 @@ public class ImgSeparator implements RectSeparator, DigitSeparator {
         Imgproc.threshold(crop, bin, thresh, 255, reverse);
         // remove noise
         Imgproc.medianBlur(bin, bin, 3);
-        if (clusterType == CVCluster.ClusterType.LIGHT_FONT) {
+        if (clusterType == CVFontType.FontType.LIGHT_FONT) {
             Imgproc.morphologyEx(bin, bin, Imgproc.MORPH_CLOSE, Imgproc.getStructuringElement(Imgproc.MORPH_RECT, new Size(3, 3)));
         }
         List<Mat> digits = new ArrayList<>();
+//        this.matListOfDigit = Arrays.asList(bin);
         try {
             setSingleDigits(bin);
         } catch (Exception e) {
@@ -532,5 +532,9 @@ public class ImgSeparator implements RectSeparator, DigitSeparator {
 
     public List<Mat> getMatListOfDigit() {
         return matListOfDigit;
+    }
+
+    public void setRectOfDigitRow(Rect rectOfDigitRow) {
+        this.rectOfDigitRow = rectOfDigitRow;
     }
 }

@@ -4,6 +4,7 @@ import cvImgUtil.SysAsset;
 import imgUtil.AbstractUtils;
 import org.opencv.core.Mat;
 import org.opencv.core.Rect;
+import org.opencv.highgui.HighGui;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -97,5 +98,18 @@ public final class Debug extends AbstractUtils{
         Long interval = System.currentTimeMillis() - s;
         pairTimer.remove(timerId);
         System.out.println("code " + timerId + " ending, costs " + interval / 1000.0 + "s");
+    }
+
+    /**
+     * creating win to display Mats
+     * @param title
+     * @param m
+     */
+    public static void imshow(String title, Mat... m) {
+        String s[] = title.split(" ");
+        for (int i = 0; i < m.length; i++) {
+            HighGui.imshow(s[i], m[i]);
+        }
+        HighGui.waitKey();
     }
 }

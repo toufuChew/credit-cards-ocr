@@ -52,6 +52,10 @@ public class CVGrayTransfer implements CVLibs{
         return new CVGrayTransfer().rgbToGray(src);
     }
 
+    public static Mat grayTransfer(Mat m) {
+        return new CVGrayTransfer().rgbToGray(m);
+    }
+
     @Override
     public Mat rgbToGray(Mat src) {
         Mat dst = new Mat();
@@ -76,7 +80,7 @@ public class CVGrayTransfer implements CVLibs{
         return new CVGrayTransfer().rgbToGray(resize);
     }
 
-    public static Mat resizeMat(Mat m, int resizeWidth, boolean pyr) {
+        public static Mat resizeMat(Mat m, int resizeWidth, boolean pyr) {
         Mat resize;
         resize = pyr ? grayUtils.normalizeSize(m) :
                 grayUtils.scale(m, new Size(resizeWidth, (float)m.height() / m.width() * resizeWidth));

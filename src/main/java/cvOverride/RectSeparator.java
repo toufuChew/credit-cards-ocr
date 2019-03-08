@@ -11,6 +11,6 @@ import java.util.List;
  */
 public interface RectSeparator {
 
-    List<Rect> rectSeparate(Mat src, Rect region);
+    List<Rect> rectSeparate(Mat src, Rect region) throws Exception;
 
 }

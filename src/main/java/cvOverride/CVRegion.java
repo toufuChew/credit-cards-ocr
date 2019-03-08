@@ -14,6 +14,8 @@ import java.util.*;
  */
 public class CVRegion extends ImgSeparator {
 
+    public static final int border = 10;
+
     public CVRegion(Mat graySrc) {
         super(graySrc);
     }
@@ -180,55 +182,55 @@ public class CVRegion extends ImgSeparator {
      * @param src mat proc by binary, top-hat, dilate and closed opr
      * @return
      */
-    public Rect digitRegion(Mat src) {
+    public Rect digitRegion(Mat src) throws Exception {
         if (src.cols() < 20 || src.rows() < 20) {
-            System.err.println("error: image.cols() < 20 || image.rows() < 20 in function 'digitRegion(Mat m)'");
-            System.exit(1);
+            throw new Exception("error: image.cols() < 20 || image.rows() < 20 in function 'digitRegion(Mat m)'");
         }
         fillBorder(src);
         Filter filter = new Filter(src);
         List<MatOfPoint> contours = new ArrayList<>();
         Imgproc.findContours(src, contours, new Mat(), Imgproc.RETR_EXTERNAL, Imgproc.CHAIN_APPROX_SIMPLE);
         Rect rect;
-        rect = filter.boundingIdRect(contours);
-        if (rect != null) {
-            Debug.log(rect);
-//            Mat mat = Mat.zeros(src.size(), src.type());
-//            Imgproc.rectangle(mat, new Point(rect.x, rect.y), new Point(rect.x + rect.width, rect.y + rect.height), new Scalar(255, 255, 255), 1);
-            return this.rectOfDigitRow = rect;
-        }
-        // if cannot bounding digit area, start separating rect areas which are large
-        Collections.sort(contours, new Comparator<MatOfPoint>() {
-            @Override
-            public int compare(MatOfPoint o1, MatOfPoint o2) {
-                return - ((int)(Imgproc.contourArea(o1) - Imgproc.contourArea(o2))); // decrease
-            }
-        });
-        final int detectDepth = Math.min(5, contours.size());
         Debug.s();
-        int maxScore = 0;
-        for (int t = 0; t < detectDepth; t++){
-            Rect br = Imgproc.boundingRect(contours.get(t));
-            Debug.log(br);
-            List<Rect> separates = this.rectSeparate(src, br);
-            for (Rect r : separates) {
-                Mat roi = drawRectRegion(src, r);
-                Rect maxRect = filter.findMaxRect(roi);
-                int score = filter.IDRegionSimilarity(maxRect, src.rows(), src.cols());
-                if (score > maxScore) {
-                    maxScore = score;
-                    rect = maxRect;
+        rect = filter.boundingIdRect(contours);
+        if (rect == null) {
+            // if cannot bounding digit area, start separating rect areas which are large
+            Collections.sort(contours, new Comparator<MatOfPoint>() {
+                @Override
+                public int compare(MatOfPoint o1, MatOfPoint o2) {
+                    return -((int) (Imgproc.contourArea(o1) - Imgproc.contourArea(o2))); // decrease
                 }
-                Debug.log(maxRect + ", score: " + score + ", index: " + t);
+            });
+            final int detectDepth = Math.min(5, contours.size());
+            int maxScore = 0;
+            for (int t = 0; t < detectDepth; t++) {
+                Rect br = Imgproc.boundingRect(contours.get(t));
+                Debug.log(br);
+                List<Rect> separates = this.rectSeparate(src, br);
+                for (Rect r : separates) {
+                    Mat roi = drawRectRegion(src, r);
+                    Rect maxRect = filter.findMaxRect(roi);
+                    int score = filter.IDRegionSimilarity(maxRect, src.rows(), src.cols());
+                    if (score > maxScore) {
+                        maxScore = score;
+                        rect = maxRect;
+                    }
+                    Debug.log(maxRect + ", score: " + score + ", index: " + t);
+                }
             }
         }
+        if (rect == null)
+            return null;
+        Debug.log(rect);
+//        Mat m =drawRectRegion(src, rect); //debug
+//        Debug.imshow("", m);
         cutEdgeOfX(rect);
         try {
             Debug.e();
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return this.rectOfDigitRow = rect;
+        return rect;
     }
 
     public static Mat drawRectRegion(Mat src, Rect roi) {
@@ -246,10 +248,13 @@ public class CVRegion extends ImgSeparator {
         return m;
     }
 
+    /**
+     * fill image border with black pix
+     * @param m
+     */
     public static void fillBorder(Mat m) {
         int cols = m.cols();
         int rows = m.rows();
-        final int border = 10;
         byte buff[] = new byte[cols * rows];
         m.get(0, 0, buff);
         for (int i = 0; i < cols; i++) {

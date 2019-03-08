@@ -23,11 +23,10 @@ public class CVCluster {
      * detect result of card id-font type
      * the default is black
      */
-    public ClusterType type = ClusterType.BLACK_FONT;
-    public enum ClusterType {
-        BLACK_FONT,
-        LIGHT_FONT
-    }
+    public CVFontType.FontType type = CVFontType.FontType.UNKNOWN;
+
+    private int binaryThreshold;
+
     static final class MathUtil extends AbstractCVUtils {
 
         public static int indexOfMaxValue(double[] array){
@@ -86,7 +85,6 @@ public class CVCluster {
             int minCur = -1;
             double pre = points[0];
 
-
             for (int i = 1; i < points.length; pre = points[i++]){
                 double cp = points[i];
                 // 极大值点
@@ -123,27 +121,21 @@ public class CVCluster {
      * @param src 灰度图
      * @return 聚类后二值图
      */
-    public Mat cluster(Mat src){
+    public void cluster(Mat src){
 
         double []pixels = helper.pixelsScale(src);
 
         double []curve = helper.kernelDensity(pixels);
         // debug
         Debug.log(curve);
-
+        this.type = CVFontType.FontType.BLACK_FONT;
         int reverse = Imgproc.THRESH_BINARY_INV;
         int threshold = properThreshold(curve);
         if (threshold > BACKGROUND){
             reverse = Imgproc.THRESH_BINARY;
-            // top-hat enhance contrast
-            Imgproc.morphologyEx(src, src, Imgproc.MORPH_TOPHAT,
-                    Imgproc.getStructuringElement(Imgproc.MORPH_RECT, new Size(9, 3)));
-            this.type = ClusterType.LIGHT_FONT;
+            this.type = CVFontType.FontType.LIGHT_FONT;
         }
-        final int white = 0xff;
-        Mat dst = new Mat();
-        Imgproc.threshold(src, dst, threshold, white, reverse);
-        return dst;
+        this.binaryThreshold = threshold;
     }
 
     protected static final int BACKGROUND = 110;
@@ -192,6 +184,10 @@ public class CVCluster {
 
         Debug.log("cluster threshold: " + threshold);
         return threshold;
+    }
+
+    public int getBinaryThreshold() {
+        return binaryThreshold;
     }
 
 }
