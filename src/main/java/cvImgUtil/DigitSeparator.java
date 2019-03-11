@@ -1,5 +1,6 @@
-package cvOverride;
+package cvImgUtil;
 
+import cvOverride.CVFontType;
 import org.opencv.core.Mat;
 import org.opencv.core.Rect;
 
@@ -10,5 +11,5 @@ import java.util.List;
  */
 public interface DigitSeparator {
 
-    void digitSeparate(CVFontType.FontType clusterType) throws Exception;
+    void digitSeparate() throws Exception;
 }

@@ -2,12 +2,14 @@ package cvOverride;
 
 import cvImgUtil.ImgFilter;
 import cvImgUtil.ImgSeparator;
+import cvImgUtil.RectFilter;
+import cvImgUtil.SplitList;
 import debug.Debug;
-import org.omg.CORBA.PRIVATE_MEMBER;
 import org.opencv.core.*;
 import org.opencv.imgproc.Imgproc;
 
 import java.util.*;
+import java.util.concurrent.Executors;
 
 /**
  * Created by chenqiu on 2/20/19.
@@ -16,8 +18,124 @@ public class CVRegion extends ImgSeparator {
 
     public static final int border = 10;
 
+    private Mat binDigitRegion;
+
     public CVRegion(Mat graySrc) {
         super(graySrc);
+        binDigitRegion = null;
+    }
+
+    @Override
+    public void split(SplitList splitList) {
+        int rows = binDigitRegion.rows();
+        int cols = binDigitRegion.cols();
+        byte buff[] = new byte[cols * rows];
+        binDigitRegion.get(0, 0, buff);
+        int upperWidth = (int)(1.38f * splitList.getStandardWidth());
+        int lowerWidth = (int)(0.8f * splitList.getStandardWidth());
+        int window = upperWidth - lowerWidth;
+        for (int i = 0; i < splitList.size(); i++) {
+            SplitList.Node node = splitList.get(i);
+            if (node.width() > upperWidth) {
+                int x = node.getStartPointX() + lowerWidth;
+                int spx = splitX(buff, x, x + window);
+                splitList.split(i, spx);
+            }
+        }
+    }
+
+    @Override
+    public void merge(SplitList splitList) throws Exception {
+        int min = Integer.MAX_VALUE;
+        String solution = "";
+        System.err.println("merge size: " + splitList.size());
+        if (splitList.size() > 10) {
+            throw new Exception("CVRegion error: splitList.size() is too large and over time limit to merge in function merge(SplitList spl).");
+        }
+        List<String> box = new ArrayList<>();
+        permutations(splitList.size(), 0, "", box);
+        for (int i = 0; i < box.size(); i++) {
+            String s = box.get(i);
+            int splIndex = 0;
+            int score = 0;
+            for (int j = 0; j < s.length(); j++) {
+                int val = s.charAt(j) - '0';
+                int distance = splitList.dist(splIndex, splIndex + val - 1);
+                splIndex += val;
+                score += Math.abs(distance - splitList.getStandardWidth());
+            }
+            if (score < min) {
+                min = score;
+                solution = s;
+            }
+        }
+        for (int c = 0, spl = 0; c < solution.length(); c++) {
+            int val = solution.charAt(c) - '0';
+            splitList.join(spl, spl + val - 1);
+            spl++;
+        }
+    }
+
+    private void permutations(int total, int n, String solution, List<String> box) {
+        if (total < n)
+            return;
+        if (total == n) {
+            box.add(solution.substring(1) + n);
+            return;
+        }
+        solution += n;
+        permutations(total - n, 3, solution, box);
+        permutations(total - n, 2, solution, box);
+        permutations(total - n, 1, solution, box);
+    }
+
+    private int splitX(byte []buff, int si, int ei) {
+        int max = 0;
+        int index = 0;
+        int rows = binDigitRegion.rows();
+        int cols = binDigitRegion.cols();
+        for (int x = si; x <= ei; x++) {
+            int len = 0;
+            for (int y = 0; y < rows; y++)
+                if (buff[y * cols + x] == 0)
+                    len++;
+            if (max < len) {
+                max = len;
+                index = x;
+            }
+        }
+        return index;
+    }
+
+    @Override
+    public void setSingleDigits() throws Exception {
+        int []x = calcHistOfXY(binDigitRegion, true);
+        int cur = 0;
+        List<Integer> cutting = new LinkedList<>();
+        while (true) {
+            int next = findNext(x, cur);
+            if (next >= x.length)
+                break;
+            cutting.add(next);
+            cur = next;
+        }
+
+        int ref = getDigitWidth(cutting);
+        if (ref < 0)
+            return;
+
+        SplitList splitList = new SplitList(cutting, ref);
+        split(splitList);
+        final int upperWidth = (int)(1.2f * ref);
+        final int lowerWidth = (int)(0.6f * ref);
+        SplitList output = splitList.out(upperWidth, lowerWidth);
+        List<SplitList> buckets = splitList.crack(upperWidth);
+        for (SplitList elem : buckets) {
+            merge(elem);
+            output.addAll(elem.toNodeList());
+        }
+        output.sort();
+        paintDigits(output.toSimpleList());
     }
 
     final static class Filter extends ImgFilter {
@@ -265,6 +383,39 @@ public class CVRegion extends ImgSeparator {
             }
         }
         m.put(0, 0, buff);
+    }
+
+    @Override
+    public void digitSeparate() throws Exception {
+        super.digitSeparate();
+        Mat binDigits = new Mat(grayMat, getRectOfDigitRow());
+        CVFontType.FontType fontType = CVFontType.getFontType(binDigits);
+        if (fontType == CVFontType.FontType.LIGHT_FONT) {
+            Mat sqKernel = Imgproc.getStructuringElement(Imgproc.MORPH_RECT, new Size(5, 5));
+
+            Mat dst0 = new Mat();
+            Imgproc.morphologyEx(binDigits, dst0, Imgproc.MORPH_TOPHAT, sqKernel);
+            Imgproc.morphologyEx(dst0, dst0, Imgproc.MORPH_GRADIENT, sqKernel);
+            Imgproc.threshold(dst0, dst0, 0, 255, Imgproc.THRESH_BINARY | Imgproc.THRESH_OTSU);
+            Imgproc.medianBlur(dst0, dst0, 3);
+
+            Mat dst1 = new Mat();
+            Imgproc.morphologyEx(binDigits, dst1, Imgproc.MORPH_BLACKHAT, sqKernel);
+            Imgproc.morphologyEx(dst1, dst1, Imgproc.MORPH_GRADIENT, sqKernel);
+            Imgproc.medianBlur(dst1, dst1, 3);
+            Imgproc.threshold(dst1, dst1, 0, 255, Imgproc.THRESH_BINARY | Imgproc.THRESH_OTSU);
+            Core.bitwise_or(dst0, dst1, dst1);
+            Imgproc.morphologyEx(dst1, dst1, Imgproc.MORPH_CLOSE, Imgproc.getStructuringElement(Imgproc.MORPH_RECT, new Size(3, 3)));
+            Imgproc.dilate(dst1, binDigits, Imgproc.getStructuringElement(Imgproc.MORPH_RECT, new Size(1, 5)));
+        }
+        if (fontType == CVFontType.FontType.BLACK_FONT || fontType == CVFontType.FontType.UNKNOWN) {
+            final int thresh = 60;
+            Imgproc.threshold(binDigits, binDigits, thresh, 255, Imgproc.THRESH_BINARY_INV);
+            Imgproc.medianBlur(binDigits, binDigits, 3);
+        }
+        this.binDigitRegion = binDigits;
+//        Debug.imshow(CVFontType.fontTypeToString(fontType), binDigits);
+        setSingleDigits();
     }
 
     /**

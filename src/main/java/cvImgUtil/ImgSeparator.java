@@ -6,12 +6,11 @@ import org.opencv.core.*;
 import org.opencv.imgproc.Imgproc;
 
 import java.util.*;
-import java.util.concurrent.ExecutionException;
 
 /**
  * Created by chenqiu on 2/21/19.
  */
-public class ImgSeparator implements RectSeparator, DigitSeparator {
+public abstract class ImgSeparator implements RectSeparator, DigitSeparator{
     public Mat grayMat;
 
     private List<Mat> matListOfDigit;
@@ -20,6 +19,8 @@ public class ImgSeparator implements RectSeparator, DigitSeparator {
 
     public ImgSeparator(Mat graySrc) {
         this.grayMat = graySrc;
+        matListOfDigit = new ArrayList<>();
+        rectOfDigitRow = null;
     }
 
     @Override
@@ -360,10 +361,9 @@ public class ImgSeparator implements RectSeparator, DigitSeparator {
     /**
      * get the average width of id region digits
      * @param cutting
-     * @param cntArea
      * @return
      */
-    private int getDigitWidth(List<Integer> cutting, List<Integer> cntArea) {
+    protected int getDigitWidth(List<Integer> cutting) {
         if ((cutting.size() & 0x1) == 1) {
             System.err.println("ImgSeparator error: cutting.size() cannot be odd number in function getDigitWidth(List<Integer> c, List<Integer> cntArea)");
             System.exit(1);
@@ -425,11 +425,14 @@ public class ImgSeparator implements RectSeparator, DigitSeparator {
         return calc;
     }
 
+    abstract public void setSingleDigits() throws Exception;
+
     /**
      * spilt each digit of id region
      * @param m binary image of id region
      * @throws Exception
      */
+    @SuppressWarnings("unused")
     public void setSingleDigits(Mat m) throws Exception {
         int []x = calcHistOfXY(m, true);
         int cur = 0;
@@ -441,7 +444,10 @@ public class ImgSeparator implements RectSeparator, DigitSeparator {
             cutting.add(next);
             cur = next;
         }
-        matListOfDigit = new ArrayList<>();
+
+        int ref = getDigitWidth(cutting);
+        if (ref < 0)
+            return;
 
         List<Integer> contains = new ArrayList<>();
         for (int i = 1; i < cutting.size(); i++) {
@@ -457,16 +463,20 @@ public class ImgSeparator implements RectSeparator, DigitSeparator {
                 sum += Imgproc.contourArea(mp);
             contains.add(sum);
         }
-        int ref = getDigitWidth(cutting, contains);
-        if (ref < 0)
-            return;
         simpleCombine(cutting, contains, ref);
+        paintDigits(cutting);
+    }
 
-        for (int i = 1; i < cutting.size(); i++) {
+    abstract public void split(SplitList splitList);
+
+    abstract public void merge(SplitList splitList) throws Exception;
+
+    protected void paintDigits(List<Integer> cuttingList) {
+        for (int i = 1; i < cuttingList.size(); i++) {
             if ((i & 0x1) == 0)
                 continue;
-            int x1 = cutting.get(i - 1);
-            int x2 = cutting.get(i);
+            int x1 = cuttingList.get(i - 1);
+            int x2 = cuttingList.get(i);
             Mat crop = new Mat(grayMat, new Rect(x1 + rectOfDigitRow.x, rectOfDigitRow.y, x2 - x1, rectOfDigitRow.height));
             byte buff[] = new byte[crop.rows() * crop.cols()];
             crop.get(0, 0, buff);
@@ -475,14 +485,15 @@ public class ImgSeparator implements RectSeparator, DigitSeparator {
             for (int j = 0; j < crop.rows(); j++)
                 System.arraycopy(buff, j * crop.cols(), out, j * dst.cols(), crop.cols());
             dst.put(0, 0, out);
+            dst = CVGrayTransfer.resizeMat(dst, 380, false);
             matListOfDigit.add(dst);
         }
         Mat dst = new Mat();
         Core.vconcat(matListOfDigit, dst);
-        matListOfDigit = Arrays.asList(dst);
+//        Debug.imshow("concat", dst);
     }
 
-    private int findNext(int v[], int index) {
+    protected int findNext(int v[], int index) {
         int i;
         boolean get = false;
         if (index < v.length && v[index] != 0)
@@ -497,37 +508,14 @@ public class ImgSeparator implements RectSeparator, DigitSeparator {
     }
 
     @Override
-    public void digitSeparate(CVFontType.FontType clusterType) throws Exception {
+    public void digitSeparate() throws Exception {
         if (grayMat.type() != CvType.CV_8UC1) {
             throw new Exception("ImgSeparator error: digitSeparate supports only CV_8UC1 images when mode == " + CvType.typeToString(grayMat.type()));
         }
-        Mat src = grayMat.clone();
-        if (this.rectOfDigitRow == null) {
-            throw new Exception("ImgSeparator error: digitSeparate need to set this.rectOfDigitRow which is null");
+        if (this.rectOfDigitRow.width == 0 || this.rectOfDigitRow.height == 0) {
+            throw new Exception("ImgSeparator error: digitSeparate need to set this.rectOfDigitRow whose width or height is 0.");
         }
-        int thresh = 60;
-        int reverse = Imgproc.THRESH_BINARY_INV;
-        if (clusterType == CVFontType.FontType.LIGHT_FONT) {
-            thresh = 40;
-            reverse = Imgproc.THRESH_BINARY;
-            Imgproc.morphologyEx(src, src, Imgproc.MORPH_TOPHAT, Imgproc.getStructuringElement(Imgproc.MORPH_RECT, new Size(9, 3)));
-        }
-
-        Mat crop = new Mat(src, this.rectOfDigitRow);
-        Mat bin = new Mat();
-        Imgproc.threshold(crop, bin, thresh, 255, reverse);
-        // remove noise
-        Imgproc.medianBlur(bin, bin, 3);
-        if (clusterType == CVFontType.FontType.LIGHT_FONT) {
-            Imgproc.morphologyEx(bin, bin, Imgproc.MORPH_CLOSE, Imgproc.getStructuringElement(Imgproc.MORPH_RECT, new Size(3, 3)));
-        }
-        List<Mat> digits = new ArrayList<>();
 //        this.matListOfDigit = Arrays.asList(bin);
-        try {
-            setSingleDigits(bin);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     public List<Mat> getMatListOfDigit() {
@@ -536,5 +524,9 @@ public class ImgSeparator implements RectSeparator, DigitSeparator {
 
     public void setRectOfDigitRow(Rect rectOfDigitRow) {
         this.rectOfDigitRow = rectOfDigitRow;
+    }
+
+    public Rect getRectOfDigitRow() {
+        return rectOfDigitRow;
     }
 }

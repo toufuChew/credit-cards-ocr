@@ -84,7 +84,7 @@ public class CVFontType {
                 }
             });
             whiteBits = cols * rows - whiteBits;
-            Debug.imshow("not", not);
+//            Debug.imshow("not", not);
         }
         final int checkTimes = 5;
         // check whether contains large amounts of debris
@@ -103,7 +103,7 @@ public class CVFontType {
             e.printStackTrace();
         }
         type = FontType.BLACK_FONT;
-        Debug.imshow(fontTypeToString(type), bin);
+//        Debug.imshow(fontTypeToString(type), bin);
         return type;
     }
 

@@ -1,6 +1,5 @@
 package cvImgUtil;
 
-import cvOverride.RectFilter;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfPoint;
 import org.opencv.core.Rect;

@@ -1,17 +1,16 @@
 package cvOverride;
 
+import cvImgUtil.RectFilter;
 import cvImgUtil.SysAsset;
 import debug.Debug;
 import imgToText.TessReg;
 import org.opencv.core.*;
-import org.opencv.highgui.HighGui;
 import org.opencv.imgproc.Imgproc;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static java.lang.System.exit;
-import static java.lang.System.in;
 import static org.opencv.imgproc.Imgproc.*;
 
 /**
@@ -42,11 +41,10 @@ public class CVMain {
 
 
     static void canny2() {
-        String fileName = "Credit.jpg";
+        String fileName = "E.jpg";
         Mat gray = CVGrayTransfer.grayTransferBeforeScale(fileName, false);
         Debug.log("gray.width = " + gray.cols() + ", gray.height = " + gray.rows());
         boolean findBright = false;
-        CVFontType.FontType type = CVFontType.FontType.BLACK_FONT;
         CVRegion cvRegion = new CVRegion(gray);
         Rect bestRect = new Rect();
         final float fullWidth = gray.cols() - cvRegion.border * 2;
@@ -93,7 +91,6 @@ public class CVMain {
                 }
                 if (chose) {
                     bestRect = idRect;
-                    type = findBright ? CVFontType.FontType.LIGHT_FONT : CVFontType.FontType.BLACK_FONT;
                     Debug.log("findBright= " + findBright);
                 }
             }
@@ -105,15 +102,13 @@ public class CVMain {
         }
         cvRegion.setRectOfDigitRow(bestRect);
         try {
-            cvRegion.digitSeparate(type);
+            cvRegion.digitSeparate();
         } catch (Exception e) {
             e.printStackTrace();
         }
 //        CVCluster.helper.writeFile(cvRegion.getMatListOfDigit().get(0), SysAsset.debugPath() + "Cluster.jpg");
         CVCluster.helper.writeFile(new Mat(gray, bestRect), SysAsset.debugPath() + "Cluster.jpg");
-        CVFontType.getFontType(new Mat(gray, bestRect));
     }
-
 
     public static void main(String []args) throws Exception {
         System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
