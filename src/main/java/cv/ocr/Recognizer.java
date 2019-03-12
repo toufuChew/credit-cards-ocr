@@ -1,4 +1,4 @@
-package cvOCR;
+package cv.ocr;
 
 import org.bytedeco.javacpp.lept;
 import org.bytedeco.javacpp.tesseract;

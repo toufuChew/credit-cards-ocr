@@ -1,6 +1,6 @@
-package cvImgUtil;
+package cv.imgutils;
 
-import cvOverride.*;
+import cv.override.CVGrayTransfer;
 import debug.Debug;
 import org.opencv.core.*;
 import org.opencv.imgproc.Imgproc;
@@ -13,9 +13,9 @@ import java.util.*;
 public abstract class ImgSeparator implements RectSeparator, DigitSeparator{
     public Mat grayMat;
 
-    private List<Mat> matListOfDigit;
+    protected List<Mat> matListOfDigit;
 
-    private Rect rectOfDigitRow;
+    protected Rect rectOfDigitRow;
 
     public ImgSeparator(Mat graySrc) {
         this.grayMat = graySrc;
@@ -216,6 +216,7 @@ public abstract class ImgSeparator implements RectSeparator, DigitSeparator{
         a[i] = a[i] - a[j];
     }
 
+    @SuppressWarnings("unused")
     private void drawLine(byte buff[], int xy, int len) {
         int e = len + xy;
         for (int i = xy; i < e; i++) {
@@ -490,8 +491,10 @@ public abstract class ImgSeparator implements RectSeparator, DigitSeparator{
         }
         Mat dst = new Mat();
         Core.vconcat(matListOfDigit, dst);
-//        Debug.imshow("concat", dst);
+        Debug.imshow("concat", dst);
     }
+
+    abstract protected void cutEdgeOfX(Rect rect);
 
     protected int findNext(int v[], int index) {
         int i;
@@ -506,6 +509,8 @@ public abstract class ImgSeparator implements RectSeparator, DigitSeparator{
         }
         return i;
     }
+
+    abstract protected Rect cutEdgeOfY(Mat binSingleDigit);
 
     @Override
     public void digitSeparate() throws Exception {

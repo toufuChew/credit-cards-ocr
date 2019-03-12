@@ -1,6 +1,6 @@
-package cvOverride;
+package cv.override;
 
-import cvImgUtil.AbstractCVUtils;
+import cv.imgutils.AbstractCVUtils;
 import openHelper.CVLibs;
 import org.opencv.core.Mat;
 import org.opencv.core.Size;
@@ -80,10 +80,14 @@ public class CVGrayTransfer implements CVLibs{
         return new CVGrayTransfer().rgbToGray(resize);
     }
 
-        public static Mat resizeMat(Mat m, int resizeWidth, boolean pyr) {
+    public static Mat resizeMat(Mat m, int resizeWidth, boolean pyr) {
         Mat resize;
         resize = pyr ? grayUtils.normalizeSize(m) :
                 grayUtils.scale(m, new Size(resizeWidth, (float)m.height() / m.width() * resizeWidth));
         return resize;
+    }
+
+    public static Mat resizeMat(Mat m, int resizeWidth, int resizeHeight) {
+        return grayUtils.scale(m, new Size(resizeWidth, resizeHeight));
     }
 }

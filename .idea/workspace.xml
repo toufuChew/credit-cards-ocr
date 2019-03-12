@@ -2,26 +2,43 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="99698a85-c4c2-4622-89f7-faac30a2dcc5" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/cvImgUtil/SplitList.java" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/cvOverride/DigitSeparator.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/cvOverride/RectFilter.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/cvOverride/RectSeparator.class" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/cvOverride/DigitSeparator.java" afterPath="$PROJECT_DIR$/src/main/java/cvImgUtil/DigitSeparator.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/cvOverride/RectFilter.java" afterPath="$PROJECT_DIR$/src/main/java/cvImgUtil/RectFilter.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/cvOverride/RectSeparator.java" afterPath="$PROJECT_DIR$/src/main/java/cvImgUtil/RectSeparator.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/cvImgUtil/ImgFilter.class" afterPath="$PROJECT_DIR$/target/classes/cvImgUtil/ImgFilter.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/cvImgUtil/ImgSeparator.class" afterPath="$PROJECT_DIR$/target/classes/cvImgUtil/ImgSeparator.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/cvOverride/CVMain$1.class" afterPath="$PROJECT_DIR$/target/classes/cvOverride/CVMain$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/cvOverride/CVMain.class" afterPath="$PROJECT_DIR$/target/classes/cvOverride/CVMain.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/cvOverride/CVRegion$1.class" afterPath="$PROJECT_DIR$/target/classes/cvOverride/CVRegion$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/cvOverride/CVRegion$Filter.class" afterPath="$PROJECT_DIR$/target/classes/cvOverride/CVRegion$Filter.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/cvOverride/CVRegion.class" afterPath="$PROJECT_DIR$/target/classes/cvOverride/CVRegion.class" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/res/img/dataset/.gitignore" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/cv/imgutils/CardFonts.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/data/trained/DataSet.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/data/trained/TrainingCheck.java" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/cvImgUtil/AbstractCVUtils.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/cvImgUtil/ImgFilter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/cvImgUtil/ImgSeparator.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/cvImgUtil/SysAsset.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/cvOCR/Recognizer.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/cvOverride/CVCluster$MathUtil.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/cvOverride/CVCluster.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/cvOverride/CVGrayTransfer$GrayUtils.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/cvOverride/CVGrayTransfer.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/cvOverride/CVMain$1.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/cvOverride/CVMain.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/cvOverride/CVRegion$1.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/cvOverride/CVRegion$Filter.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/cvOverride/CVRegion.class" afterPath="" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/cvImgUtil/AbstractCVUtils.java" afterPath="$PROJECT_DIR$/src/main/java/cv/imgutils/AbstractCVUtils.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/cvImgUtil/DigitSeparator.java" afterPath="$PROJECT_DIR$/src/main/java/cv/imgutils/DigitSeparator.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/cvImgUtil/ImgFilter.java" afterPath="$PROJECT_DIR$/src/main/java/cv/imgutils/ImgFilter.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/cvImgUtil/ImgSeparator.java" afterPath="$PROJECT_DIR$/src/main/java/cv/imgutils/ImgSeparator.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/cvImgUtil/RectFilter.java" afterPath="$PROJECT_DIR$/src/main/java/cv/imgutils/RectFilter.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/cvImgUtil/RectSeparator.java" afterPath="$PROJECT_DIR$/src/main/java/cv/imgutils/RectSeparator.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/cvImgUtil/SplitList.java" afterPath="$PROJECT_DIR$/src/main/java/cv/imgutils/SplitList.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/cvImgUtil/SysAsset.java" afterPath="$PROJECT_DIR$/src/main/java/cv/imgutils/SysAsset.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/cvOCR/Recognizer.java" afterPath="$PROJECT_DIR$/src/main/java/cv/ocr/Recognizer.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/cvOverride/CVCluster.java" afterPath="$PROJECT_DIR$/src/main/java/cv/override/CVCluster.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/cvOverride/CVDilate.java" afterPath="$PROJECT_DIR$/src/main/java/cv/override/CVDilate.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/cvOverride/CVFontType.java" afterPath="$PROJECT_DIR$/src/main/java/cv/override/CVFontType.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/cvOverride/CVGrayTransfer.java" afterPath="$PROJECT_DIR$/src/main/java/cv/override/CVGrayTransfer.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/cvOverride/CVMain.java" afterPath="$PROJECT_DIR$/src/main/java/cv/override/CVMain.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/cvOverride/CVRegion.java" afterPath="$PROJECT_DIR$/src/main/java/cv/override/CVRegion.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/debug/Debug.class" afterPath="$PROJECT_DIR$/target/classes/debug/Debug.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cvImgUtil/ImgFilter.java" afterPath="$PROJECT_DIR$/src/main/java/cvImgUtil/ImgFilter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cvImgUtil/ImgSeparator.java" afterPath="$PROJECT_DIR$/src/main/java/cvImgUtil/ImgSeparator.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cvOverride/CVFontType.java" afterPath="$PROJECT_DIR$/src/main/java/cvOverride/CVFontType.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cvOverride/CVMain.java" afterPath="$PROJECT_DIR$/src/main/java/cvOverride/CVMain.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cvOverride/CVRegion.java" afterPath="$PROJECT_DIR$/src/main/java/cvOverride/CVRegion.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/debug/Debug.java" afterPath="$PROJECT_DIR$/src/main/java/debug/Debug.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/imgToText/TessReg.java" afterPath="$PROJECT_DIR$/src/main/java/imgToText/TessReg.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -38,129 +55,88 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="CVMain.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/cvOverride/CVMain.java">
+      <file leaf-file-name="CVGrayTransfer.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/cv/override/CVGrayTransfer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="80">
-              <caret line="43" column="28" lean-forward="false" selection-start-line="43" selection-start-column="28" selection-end-line="43" selection-end-column="28" />
+            <state relative-caret-position="494">
+              <caret line="90" column="71" lean-forward="false" selection-start-line="90" selection-start-column="71" selection-end-line="90" selection-end-column="71" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Recognizer.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/cvOCR/Recognizer.java">
+      <file leaf-file-name="CVMain.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/cv/override/CVMain.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="360">
-              <caret line="26" column="5" lean-forward="false" selection-start-line="26" selection-start-column="5" selection-end-line="26" selection-end-column="5" />
-              <folding>
-                <element signature="e#568#569#0" expanded="true" />
-                <element signature="e#595#596#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="208">
+              <caret line="112" column="18" lean-forward="true" selection-start-line="112" selection-start-column="18" selection-end-line="112" selection-end-column="18" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CVDilate.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/cvOverride/CVDilate.java">
+      <file leaf-file-name="TessReg.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/imgToText/TessReg.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="210">
-              <caret line="67" column="47" lean-forward="false" selection-start-line="67" selection-start-column="47" selection-end-line="67" selection-end-column="47" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="CVFontType.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/cvOverride/CVFontType.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="360">
-              <caret line="85" column="25" lean-forward="false" selection-start-line="85" selection-start-column="25" selection-end-line="85" selection-end-column="25" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#879#892#0" expanded="false" />
-              </folding>
+            <state relative-caret-position="107">
+              <caret line="26" column="57" lean-forward="false" selection-start-line="26" selection-start-column="57" selection-end-line="26" selection-end-column="57" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
       <file leaf-file-name="CVRegion.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/cvOverride/CVRegion.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/cv/override/CVRegion.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="598">
-              <caret line="405" column="42" lean-forward="true" selection-start-line="405" selection-start-column="42" selection-end-line="405" selection-end-column="42" />
-              <folding />
+            <state relative-caret-position="-916">
+              <caret line="424" column="0" lean-forward="false" selection-start-line="424" selection-start-column="0" selection-end-line="424" selection-end-column="0" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#312#313#0" expanded="true" />
+                <element signature="e#349#350#0" expanded="true" />
+                <element signature="e#4494#4495#0" expanded="true" />
+                <element signature="e#4525#4526#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ImgSeparator.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/cvImgUtil/ImgSeparator.java">
+      <file leaf-file-name="DataSet.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/data/trained/DataSet.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="254">
-              <caret line="441" column="33" lean-forward="true" selection-start-line="441" selection-start-column="33" selection-end-line="441" selection-end-column="33" />
+            <state relative-caret-position="119">
+              <caret line="117" column="44" lean-forward="false" selection-start-line="117" selection-start-column="44" selection-end-line="117" selection-end-column="44" />
               <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#1514#1515#0" expanded="true" />
+                <element signature="e#1552#1553#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ImgSeparator.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/cv/imgutils/ImgSeparator.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-4">
+              <caret line="466" column="44" lean-forward="false" selection-start-line="466" selection-start-column="44" selection-end-line="466" selection-end-column="44" />
+              <folding>
+                <element signature="imports" expanded="true" />
                 <element signature="method#localCombine#0;class#ImgSeparator#0" expanded="false" />
-                <element signature="e#14239#14266#0" expanded="true" />
-                <element signature="e#17635#17636#0" expanded="true" />
-                <element signature="e#17687#17688#0" expanded="true" />
-                <element signature="e#17726#17727#0" expanded="true" />
-                <element signature="e#17763#17764#0" expanded="true" />
-                <marker date="1552234002751" expanded="true" signature="10736:10833" ph="{...}" />
+                <marker date="1552308061679" expanded="true" signature="10788:10885" ph="{...}" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SplitList.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/cvImgUtil/SplitList.java">
+      <file leaf-file-name="Recognizer.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/cv/ocr/Recognizer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="127">
-              <caret line="109" column="16" lean-forward="false" selection-start-line="109" selection-start-column="16" selection-end-line="109" selection-end-column="16" />
+            <state relative-caret-position="360">
+              <caret line="26" column="5" lean-forward="true" selection-start-line="26" selection-start-column="5" selection-end-line="26" selection-end-column="5" />
               <folding>
-                <element signature="e#947#948#0" expanded="true" />
-                <element signature="e#983#984#0" expanded="true" />
-                <element signature="e#1305#1306#0" expanded="true" />
-                <element signature="e#1341#1342#0" expanded="true" />
-                <element signature="e#1380#1381#0" expanded="true" />
-                <element signature="e#1413#1414#0" expanded="true" />
-                <element signature="e#1450#1451#0" expanded="true" />
-                <element signature="e#1483#1484#0" expanded="true" />
-                <element signature="e#1510#1511#0" expanded="true" />
-                <element signature="e#1543#1544#0" expanded="true" />
-                <element signature="e#1574#1575#0" expanded="true" />
-                <element signature="e#1640#1641#0" expanded="true" />
-                <element signature="e#3010#3011#0" expanded="true" />
-                <element signature="e#3045#3046#0" expanded="true" />
-                <element signature="e#3206#3207#0" expanded="true" />
-                <element signature="e#3258#3259#0" expanded="true" />
-                <element signature="e#3310#3311#0" expanded="true" />
-                <element signature="e#3349#3350#0" expanded="true" />
-                <element signature="e#4778#4779#0" expanded="true" />
-                <element signature="e#4811#4812#0" expanded="true" />
+                <element signature="imports" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ImgFilter.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/cvImgUtil/ImgFilter.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="279">
-              <caret line="42" column="27" lean-forward="false" selection-start-line="42" selection-start-column="16" selection-end-line="42" selection-end-column="27" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="RectSeparator.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/cvImgUtil/RectSeparator.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="105">
-              <caret line="11" column="21" lean-forward="false" selection-start-line="11" selection-start-column="21" selection-end-line="11" selection-end-column="21" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -224,22 +200,34 @@
         <option value="$PROJECT_DIR$/src/main/java/cvOverride/RectSeparator.java" />
         <option value="$PROJECT_DIR$/src/main/java/cvImgUtil/ImgSeparate.java" />
         <option value="$PROJECT_DIR$/src/main/java/cvOverride/RectFilter.java" />
-        <option value="$PROJECT_DIR$/src/main/java/imgToText/TessReg.java" />
         <option value="$PROJECT_DIR$/src/main/java/cvOCR/Recognizer.java" />
         <option value="$PROJECT_DIR$/src/main/java/debug/Debug.java" />
         <option value="$PROJECT_DIR$/src/main/java/cvOverride/CVCluster.java" />
         <option value="$PROJECT_DIR$/src/main/java/cvOverride/DigitSeparator.java" />
-        <option value="$PROJECT_DIR$/src/main/java/cvOverride/CVDilate.java" />
         <option value="$PROJECT_DIR$/src/main/java/cvOverride/CVGrayTransfer.java" />
         <option value="$PROJECT_DIR$/src/main/java/cvImgUtil/RectSeparator.java" />
         <option value="$PROJECT_DIR$/src/main/java/cvImgUtil/DigitSeparator.java" />
-        <option value="$PROJECT_DIR$/src/main/java/cvOverride/CVFontType.java" />
         <option value="$PROJECT_DIR$/src/main/java/cvImgUtil/SplitedList.java" />
         <option value="$PROJECT_DIR$/src/main/java/cvImgUtil/SplittedList.java" />
         <option value="$PROJECT_DIR$/src/main/java/cvImgUtil/SplitList.java" />
-        <option value="$PROJECT_DIR$/src/main/java/cvOverride/CVRegion.java" />
         <option value="$PROJECT_DIR$/src/main/java/cvOverride/CVMain.java" />
         <option value="$PROJECT_DIR$/src/main/java/cvImgUtil/ImgSeparator.java" />
+        <option value="$PROJECT_DIR$/src/main/java/cvImgUtil/CardFontType.java" />
+        <option value="$PROJECT_DIR$/src/main/java/cvImgUtil/CardFonts.java" />
+        <option value="$PROJECT_DIR$/src/main/java/cvOverride/CVFontType.java" />
+        <option value="$PROJECT_DIR$/src/main/java/cvOverride/CVDilate.java" />
+        <option value="$PROJECT_DIR$/src/main/java/cvOverride/CVRegion.java" />
+        <option value="$PROJECT_DIR$/src/main/java/cv/override/CVCluster.java" />
+        <option value="$PROJECT_DIR$/src/main/java/cv/imgutils/CardFonts.java" />
+        <option value="$PROJECT_DIR$/src/main/java/cv/override/CVMain.java" />
+        <option value="$PROJECT_DIR$/src/main/java/cv/imgutils/AbstractCVUtils.java" />
+        <option value="$PROJECT_DIR$/src/main/java/cv/imgutils/ImgSeparator.java" />
+        <option value="$PROJECT_DIR$/src/main/java/cv/override/CVRegion.java" />
+        <option value="$PROJECT_DIR$/src/main/java/cv/override/CVGrayTransfer.java" />
+        <option value="$PROJECT_DIR$/src/main/java/data/trained/DataSet.java" />
+        <option value="$PROJECT_DIR$/src/main/java/data/trained/TrainningCheck.java" />
+        <option value="$PROJECT_DIR$/src/main/java/data/trained/TrainingCheck.java" />
+        <option value="$PROJECT_DIR$/src/main/java/imgToText/TessReg.java" />
       </list>
     </option>
   </component>
@@ -296,9 +284,9 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
-      <pane id="Scratches" />
       <pane id="Scope" />
+      <pane id="Scratches" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -421,6 +409,32 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="imgUtil" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="CardIDRecognition" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="CardIDRecognition" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="imgToText" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -499,7 +513,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="cvOverride" />
+              <option name="myItemId" value="trained" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -525,7 +539,11 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="cvOCR" />
+              <option name="myItemId" value="cv" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="override" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -551,7 +569,41 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="cvImgUtil" />
+              <option name="myItemId" value="cv" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ocr" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="CardIDRecognition" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="CardIDRecognition" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cv" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="imgutils" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -604,12 +656,15 @@
     <property name="project.structure.side.proportion" value="0.2" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/res/img/dataset" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/res/img/dataset" />
       <recent name="$PROJECT_DIR$/res/tessdata" />
       <recent name="$PROJECT_DIR$/res" />
       <recent name="$PROJECT_DIR$/res/img/origin" />
       <recent name="$PROJECT_DIR$/res/img" />
-      <recent name="$PROJECT_DIR$/src/main/java" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -624,7 +679,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.CVMain">
+  <component name="RunManager" selected="Application.TrainingCheck">
     <configuration default="false" name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <option name="MAIN_CLASS_NAME" value="Main" />
@@ -655,14 +710,14 @@
       <envs />
       <method />
     </configuration>
-    <configuration default="false" name="CVCluster" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+    <configuration default="false" name="CVMain" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
-          <option name="PATTERN" value="cvImgUtil.*" />
+          <option name="PATTERN" value="cv.override.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="MAIN_CLASS_NAME" value="cvOverride.CVCluster" />
+      <option name="MAIN_CLASS_NAME" value="cv.override.CVMain" />
       <option name="VM_PARAMETERS" value="-Djava.library.path=/usr/local/Cellar/opencv/3.4.3/share/OpenCV/java/" />
       <option name="PROGRAM_PARAMETERS" value="" />
       <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
@@ -675,17 +730,37 @@
       <envs />
       <method />
     </configuration>
-    <configuration default="false" name="CVMain" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+    <configuration default="false" name="DataSet" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
-          <option name="PATTERN" value="cvImgUtil.*" />
+          <option name="PATTERN" value="data.trained.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="MAIN_CLASS_NAME" value="cvOverride.CVMain" />
+      <option name="MAIN_CLASS_NAME" value="data.trained.DataSet" />
       <option name="VM_PARAMETERS" value="-Djava.library.path=/usr/local/Cellar/opencv/3.4.3/share/OpenCV/java/" />
       <option name="PROGRAM_PARAMETERS" value="" />
       <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="CardIDRecognition" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="TrainingCheck" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="data.trained.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="MAIN_CLASS_NAME" value="data.trained.TrainingCheck" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
       <option name="ENABLE_SWING_INSPECTOR" value="false" />
@@ -1082,18 +1157,20 @@
     <configuration default="true" type="osgi.bnd.run" factoryName="Test Launcher (JUnit)">
       <method />
     </configuration>
-    <list size="4">
+    <list size="5">
       <item index="0" class="java.lang.String" itemvalue="Application.Main" />
       <item index="1" class="java.lang.String" itemvalue="Application.Test" />
-      <item index="2" class="java.lang.String" itemvalue="Application.CVCluster" />
-      <item index="3" class="java.lang.String" itemvalue="Application.CVMain" />
+      <item index="2" class="java.lang.String" itemvalue="Application.CVMain" />
+      <item index="3" class="java.lang.String" itemvalue="Application.DataSet" />
+      <item index="4" class="java.lang.String" itemvalue="Application.TrainingCheck" />
     </list>
     <recent_temporary>
-      <list size="4">
-        <item index="0" class="java.lang.String" itemvalue="Application.CVMain" />
-        <item index="1" class="java.lang.String" itemvalue="Application.CVCluster" />
-        <item index="2" class="java.lang.String" itemvalue="Application.Main" />
+      <list size="5">
+        <item index="0" class="java.lang.String" itemvalue="Application.TrainingCheck" />
+        <item index="1" class="java.lang.String" itemvalue="Application.DataSet" />
+        <item index="2" class="java.lang.String" itemvalue="Application.CVMain" />
         <item index="3" class="java.lang.String" itemvalue="Application.Test" />
+        <item index="4" class="java.lang.String" itemvalue="Application.Main" />
       </list>
     </recent_temporary>
   </component>
@@ -1118,12 +1195,13 @@
       <workItem from="1550546183727" duration="252686000" />
       <workItem from="1551861919155" duration="1888000" />
       <workItem from="1551872600747" duration="13514000" />
-      <workItem from="1551927404110" duration="90023000" />
+      <workItem from="1551927404110" duration="93459000" />
+      <workItem from="1552285859910" duration="18488000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="513623000" />
+    <option name="totallyTimeSpent" value="535547000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1136,6 +1214,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1280" height="713" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32850242" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -1146,20 +1225,20 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32850242" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4057971" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.4057971" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3268921" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3268921" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2956381" sideWeight="0.49130434" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.30048466" sideWeight="0.49130434" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24959612" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3993559" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24959612" sideWeight="0.50869566" order="6" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3993559" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -1183,69 +1262,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_111.jdk/Contents/Home/src.zip!/java/awt/image/Raster.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="1464" column="18" lean-forward="false" selection-start-line="1464" selection-start-column="18" selection-end-line="1464" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/bytedeco/javacpp-presets/tesseract/3.04-1.1/tesseract-3.04-1.1.jar!/org/bytedeco/javacpp/tesseract.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-5997">
-          <caret line="749" column="24" lean-forward="false" selection-start-line="749" selection-start-column="24" selection-end-line="749" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/bytedeco/javacpp-presets/leptonica/1.72-1.1/leptonica-1.72-1.1.jar!/org/bytedeco/javacpp/lept.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="139">
-          <caret line="929" column="29" lean-forward="false" selection-start-line="929" selection-start-column="29" selection-end-line="929" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/com/github/haifengl/smile-math/1.5.0/smile-math-1.5.0.jar!/smile/stat/distribution/GaussianDistribution.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3">
-          <caret line="22" column="11" lean-forward="false" selection-start-line="22" selection-start-column="11" selection-end-line="22" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/com/github/haifengl/smile-math/1.5.0/smile-math-1.5.0.jar!/smile/math/Math.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="1302" column="25" lean-forward="false" selection-start-line="1302" selection-start-column="25" selection-end-line="1302" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/com/github/haifengl/smile-math/1.5.0/smile-math-1.5.0.jar!/smile/stat/distribution/KernelDensity.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="228">
-          <caret line="20" column="28" lean-forward="false" selection-start-line="20" selection-start-column="28" selection-end-line="20" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/imgUtil/MathUtils.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="242">
-          <caret line="28" column="16" lean-forward="false" selection-start-line="28" selection-start-column="16" selection-end-line="28" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/imgUtil/ImgUtils.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="426">
-          <caret line="38" column="39" lean-forward="true" selection-start-line="38" selection-start-column="39" selection-end-line="38" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/imgPreProc/GrayTransfer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-163">
-          <caret line="14" column="47" lean-forward="false" selection-start-line="14" selection-start-column="47" selection-end-line="14" selection-end-column="47" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/imgUtil/ImgColors.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="105">
@@ -1257,13 +1273,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1425">
           <caret line="97" column="14" lean-forward="false" selection-start-line="97" selection-start-column="14" selection-end-line="97" selection-end-column="14" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#3156#3157#0" expanded="false" />
-            <element signature="e#3199#3200#0" expanded="false" />
-            <element signature="e#3320#3321#0" expanded="false" />
-            <element signature="e#3364#3365#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1316,25 +1325,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="jar:///usr/local/Cellar/opencv/3.4.3/share/OpenCV/java/opencv-343.jar!/org/opencv/core/Mat.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="876" column="16" lean-forward="false" selection-start-line="876" selection-start-column="16" selection-end-line="876" selection-end-column="16" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar:///usr/local/Cellar/opencv/3.4.3/share/OpenCV/java/opencv-343.jar!/org/opencv/core/Rect.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="128">
           <caret line="14" column="11" lean-forward="false" selection-start-line="14" selection-start-column="11" selection-end-line="14" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/imgUtil/AbstractUtils.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="128">
-          <caret line="25" column="23" lean-forward="false" selection-start-line="25" selection-start-column="23" selection-end-line="25" selection-end-column="23" />
         </state>
       </provider>
     </entry>
@@ -1363,14 +1357,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cvImgUtil/SysAsset.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="480">
-          <caret line="38" column="0" lean-forward="true" selection-start-line="6" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_111.jdk/Contents/Home/src.zip!/java/awt/image/RenderedImage.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="180">
@@ -1396,30 +1382,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="149">
           <caret line="20" column="15" lean-forward="true" selection-start-line="20" selection-start-column="15" selection-end-line="20" selection-end-column="15" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/Test.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="398">
-          <caret line="210" column="47" lean-forward="false" selection-start-line="210" selection-start-column="47" selection-end-line="210" selection-end-column="47" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/imgToText/TessReg.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="41">
-          <caret line="49" column="25" lean-forward="false" selection-start-line="49" selection-start-column="25" selection-end-line="49" selection-end-column="25" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="20" column="25" lean-forward="false" selection-start-line="20" selection-start-column="22" selection-end-line="20" selection-end-column="25" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1431,45 +1393,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cvOverride/CVGrayTransfer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
-          <caret line="73" column="0" lean-forward="false" selection-start-line="73" selection-start-column="0" selection-end-line="73" selection-end-column="0" />
-          <folding>
-            <element signature="e#1264#1265#0" expanded="true" />
-            <element signature="e#1320#1321#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cvImgUtil/AbstractCVUtils.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-241">
-          <caret line="10" column="57" lean-forward="false" selection-start-line="10" selection-start-column="49" selection-end-line="10" selection-end-column="57" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/debug/Debug.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="127">
-          <caret line="91" column="23" lean-forward="false" selection-start-line="91" selection-start-column="23" selection-end-line="91" selection-end-column="23" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cvOCR/Recognizer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="26" column="5" lean-forward="false" selection-start-line="26" selection-start-column="5" selection-end-line="26" selection-end-column="5" />
-          <folding>
-            <element signature="e#568#569#0" expanded="true" />
-            <element signature="e#595#596#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cvImgUtil/RectFilter.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/cv/imgutils/RectFilter.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="270">
           <caret line="22" column="0" lean-forward="true" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
@@ -1477,42 +1401,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cvImgUtil/RectSeparator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="11" column="21" lean-forward="false" selection-start-line="11" selection-start-column="21" selection-end-line="11" selection-end-column="21" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cvOverride/CVCluster.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1830">
-          <caret line="132" column="47" lean-forward="true" selection-start-line="132" selection-start-column="47" selection-end-line="132" selection-end-column="47" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cvImgUtil/DigitSeparator.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/cv/imgutils/DigitSeparator.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="135">
           <caret line="13" column="42" lean-forward="true" selection-start-line="13" selection-start-column="42" selection-end-line="13" selection-end-column="42" />
-          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cvImgUtil/ImgFilter.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/cv/imgutils/ImgFilter.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="279">
           <caret line="42" column="27" lean-forward="false" selection-start-line="42" selection-start-column="16" selection-end-line="42" selection-end-column="27" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="61" column="15" lean-forward="false" selection-start-line="61" selection-start-column="8" selection-end-line="61" selection-end-column="15" />
           <folding />
         </state>
       </provider>
@@ -1538,85 +1437,264 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cvImgUtil/SplitList.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/cv/imgutils/SplitList.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="127">
           <caret line="109" column="16" lean-forward="false" selection-start-line="109" selection-start-column="16" selection-end-line="109" selection-end-column="16" />
           <folding>
-            <element signature="e#947#948#0" expanded="true" />
-            <element signature="e#983#984#0" expanded="true" />
-            <element signature="e#1305#1306#0" expanded="true" />
-            <element signature="e#1341#1342#0" expanded="true" />
-            <element signature="e#1380#1381#0" expanded="true" />
-            <element signature="e#1413#1414#0" expanded="true" />
-            <element signature="e#1450#1451#0" expanded="true" />
-            <element signature="e#1483#1484#0" expanded="true" />
-            <element signature="e#1510#1511#0" expanded="true" />
-            <element signature="e#1543#1544#0" expanded="true" />
-            <element signature="e#1574#1575#0" expanded="true" />
-            <element signature="e#1640#1641#0" expanded="true" />
-            <element signature="e#3010#3011#0" expanded="true" />
-            <element signature="e#3045#3046#0" expanded="true" />
-            <element signature="e#3206#3207#0" expanded="true" />
-            <element signature="e#3258#3259#0" expanded="true" />
-            <element signature="e#3310#3311#0" expanded="true" />
-            <element signature="e#3349#3350#0" expanded="true" />
-            <element signature="e#4778#4779#0" expanded="true" />
-            <element signature="e#4811#4812#0" expanded="true" />
+            <element signature="e#949#950#0" expanded="true" />
+            <element signature="e#985#986#0" expanded="true" />
+            <element signature="e#1307#1308#0" expanded="true" />
+            <element signature="e#1343#1344#0" expanded="true" />
+            <element signature="e#1382#1383#0" expanded="true" />
+            <element signature="e#1415#1416#0" expanded="true" />
+            <element signature="e#1452#1453#0" expanded="true" />
+            <element signature="e#1485#1486#0" expanded="true" />
+            <element signature="e#1512#1513#0" expanded="true" />
+            <element signature="e#1545#1546#0" expanded="true" />
+            <element signature="e#1576#1577#0" expanded="true" />
+            <element signature="e#1642#1643#0" expanded="true" />
+            <element signature="e#3012#3013#0" expanded="true" />
+            <element signature="e#3047#3048#0" expanded="true" />
+            <element signature="e#3208#3209#0" expanded="true" />
+            <element signature="e#3260#3261#0" expanded="true" />
+            <element signature="e#3312#3313#0" expanded="true" />
+            <element signature="e#3351#3352#0" expanded="true" />
+            <element signature="e#4780#4781#0" expanded="true" />
+            <element signature="e#4813#4814#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cvOverride/CVDilate.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/cv/override/CVFontType.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="67" column="47" lean-forward="false" selection-start-line="67" selection-start-column="47" selection-end-line="67" selection-end-column="47" />
+        <state relative-caret-position="-148">
+          <caret line="46" column="26" lean-forward="false" selection-start-line="46" selection-start-column="18" selection-end-line="46" selection-end-column="26" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#816#829#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar:///usr/local/Cellar/opencv/3.4.3/share/OpenCV/java/opencv-343.jar!/org/opencv/core/Mat.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="185">
+          <caret line="1182" column="30" lean-forward="false" selection-start-line="1182" selection-start-column="30" selection-end-line="1182" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cv/imgutils/SysAsset.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="9" column="17" lean-forward="false" selection-start-line="9" selection-start-column="17" selection-end-line="9" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/debug/Debug.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="319">
+          <caret line="37" column="20" lean-forward="false" selection-start-line="37" selection-start-column="20" selection-end-line="37" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/imgUtil/ImgUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="197">
+          <caret line="25" column="17" lean-forward="false" selection-start-line="25" selection-start-column="17" selection-end-line="25" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cv/imgutils/RectSeparator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="11" column="21" lean-forward="false" selection-start-line="11" selection-start-column="21" selection-end-line="11" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cv/imgutils/AbstractCVUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="152">
+          <caret line="17" column="0" lean-forward="false" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cv/override/CVDilate.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="429">
+          <caret line="53" column="42" lean-forward="false" selection-start-line="53" selection-start-column="37" selection-end-line="53" selection-end-column="42" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cvOverride/CVMain.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/cv/imgutils/CardFonts.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="80">
-          <caret line="43" column="28" lean-forward="false" selection-start-line="43" selection-start-column="28" selection-end-line="43" selection-end-column="28" />
+        <state relative-caret-position="284">
+          <caret line="49" column="25" lean-forward="false" selection-start-line="49" selection-start-column="25" selection-end-line="49" selection-end-column="25" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cvOverride/CVFontType.java">
+    <entry file="file://$PROJECT_DIR$/res/img/dataset0.jpg">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/img/dataset/1.jpg">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/img/dataset2.jpg">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cv/override/CVCluster.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-784">
+          <caret line="42" column="24" lean-forward="false" selection-start-line="42" selection-start-column="24" selection-end-line="42" selection-end-column="24" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cv/override/CVRegion.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-916">
+          <caret line="424" column="0" lean-forward="false" selection-start-line="424" selection-start-column="0" selection-end-line="424" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#312#313#0" expanded="true" />
+            <element signature="e#349#350#0" expanded="true" />
+            <element signature="e#4494#4495#0" expanded="true" />
+            <element signature="e#4525#4526#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cv/imgutils/ImgSeparator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-4">
+          <caret line="466" column="44" lean-forward="false" selection-start-line="466" selection-start-column="44" selection-end-line="466" selection-end-column="44" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#localCombine#0;class#ImgSeparator#0" expanded="false" />
+            <marker date="1552308061679" expanded="true" signature="10788:10885" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="263">
+          <caret line="61" column="15" lean-forward="false" selection-start-line="61" selection-start-column="8" selection-end-line="61" selection-end-column="15" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cv/override/CVGrayTransfer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="494">
+          <caret line="90" column="71" lean-forward="false" selection-start-line="90" selection-start-column="71" selection-end-line="90" selection-end-column="71" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/Test.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2421">
+          <caret line="197" column="0" lean-forward="false" selection-start-line="197" selection-start-column="0" selection-end-line="197" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cv/ocr/Recognizer.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="360">
-          <caret line="85" column="25" lean-forward="false" selection-start-line="85" selection-start-column="25" selection-end-line="85" selection-end-column="25" />
+          <caret line="26" column="5" lean-forward="true" selection-start-line="26" selection-start-column="5" selection-end-line="26" selection-end-column="5" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#879#892#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cvOverride/CVRegion.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/imgUtil/AbstractUtils.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="598">
-          <caret line="405" column="42" lean-forward="true" selection-start-line="405" selection-start-column="42" selection-end-line="405" selection-end-column="42" />
+        <state relative-caret-position="197">
+          <caret line="25" column="23" lean-forward="false" selection-start-line="25" selection-start-column="23" selection-end-line="25" selection-end-column="23" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cvImgUtil/ImgSeparator.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/cv/override/CVMain.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="254">
-          <caret line="441" column="33" lean-forward="true" selection-start-line="441" selection-start-column="33" selection-end-line="441" selection-end-column="33" />
+        <state relative-caret-position="208">
+          <caret line="112" column="18" lean-forward="true" selection-start-line="112" selection-start-column="18" selection-end-line="112" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/img/dataset/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="11" column="0" lean-forward="true" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/data/trained/TrainingCheck.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="12" column="44" lean-forward="true" selection-start-line="12" selection-start-column="44" selection-end-line="12" selection-end-column="44" />
           <folding>
-            <element signature="method#localCombine#0;class#ImgSeparator#0" expanded="false" />
-            <element signature="e#14239#14266#0" expanded="true" />
-            <element signature="e#17635#17636#0" expanded="true" />
-            <element signature="e#17687#17688#0" expanded="true" />
-            <element signature="e#17726#17727#0" expanded="true" />
-            <element signature="e#17763#17764#0" expanded="true" />
-            <marker date="1552234002751" expanded="true" signature="10736:10833" ph="{...}" />
+            <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/data/trained/DataSet.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="117" column="44" lean-forward="false" selection-start-line="117" selection-start-column="44" selection-end-line="117" selection-end-column="44" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1514#1515#0" expanded="true" />
+            <element signature="e#1552#1553#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-79">
+          <caret line="20" column="25" lean-forward="false" selection-start-line="20" selection-start-column="22" selection-end-line="20" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/imgToText/TessReg.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="107">
+          <caret line="26" column="57" lean-forward="false" selection-start-line="26" selection-start-column="57" selection-end-line="26" selection-end-column="57" />
+          <folding />
         </state>
       </provider>
     </entry>

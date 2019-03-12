@@ -1,16 +1,14 @@
-package cvOverride;
+package cv.override;
 
-import cvImgUtil.AbstractCVUtils;
+import cv.imgutils.AbstractCVUtils;
+import cv.imgutils.CardFonts;
 import debug.Debug;
 import org.opencv.core.*;
-import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.Imgproc;
 import smile.stat.distribution.KernelDensity;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 /**
  * Created by chenqiu on 11/26/18.
@@ -23,7 +21,7 @@ public class CVCluster {
      * detect result of card id-font type
      * the default is black
      */
-    public CVFontType.FontType type = CVFontType.FontType.UNKNOWN;
+    public CardFonts.FontType type = CardFonts.FontType.UNKNOWN;
 
     private int binaryThreshold;
 
@@ -128,12 +126,12 @@ public class CVCluster {
         double []curve = helper.kernelDensity(pixels);
         // debug
         Debug.log(curve);
-        this.type = CVFontType.FontType.BLACK_FONT;
+        this.type = CardFonts.FontType.BLACK_FONT;
         int reverse = Imgproc.THRESH_BINARY_INV;
         int threshold = properThreshold(curve);
         if (threshold > BACKGROUND){
             reverse = Imgproc.THRESH_BINARY;
-            this.type = CVFontType.FontType.LIGHT_FONT;
+            this.type = CardFonts.FontType.LIGHT_FONT;
         }
         this.binaryThreshold = threshold;
     }

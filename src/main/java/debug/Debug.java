@@ -1,9 +1,7 @@
 package debug;
 
-import cvImgUtil.SysAsset;
 import imgUtil.AbstractUtils;
 import org.opencv.core.Mat;
-import org.opencv.core.Rect;
 import org.opencv.highgui.HighGui;
 
 import java.awt.image.BufferedImage;

@@ -1,5 +1,6 @@
-package cvOverride;
+package cv.override;
 
+import cv.imgutils.CardFonts;
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
 import org.opencv.core.Point;
@@ -24,13 +25,13 @@ public class CVDilate {
      * @param thresh
      * @return
      */
-    public static Mat dilate(Mat gray0, CVFontType.FontType type, int thresh) {
+    public static Mat dilate(Mat gray0, CardFonts.FontType type, int thresh) {
         if (gray0.type() != CvType.CV_8U) {
             System.err.println("CVDilate error: image gray0 is not gray scale image in function dilate(Mat gray0, type)");
             System.exit(1);
         }
         Mat dst;
-        if (type == CVFontType.FontType.LIGHT_FONT) {
+        if (type == CardFonts.FontType.LIGHT_FONT) {
             dst = dilateBrightRegion(gray0);
         }
         else {

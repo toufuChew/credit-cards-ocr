@@ -1,15 +1,11 @@
-package cvOverride;
+package cv.override;
 
-import cvImgUtil.ImgFilter;
-import cvImgUtil.ImgSeparator;
-import cvImgUtil.RectFilter;
-import cvImgUtil.SplitList;
+import cv.imgutils.*;
 import debug.Debug;
 import org.opencv.core.*;
 import org.opencv.imgproc.Imgproc;
 
 import java.util.*;
-import java.util.concurrent.Executors;
 
 /**
  * Created by chenqiu on 2/20/19.
@@ -18,11 +14,18 @@ public class CVRegion extends ImgSeparator {
 
     public static final int border = 10;
 
+    public Mat getBinDigitRegion() {
+        return binDigitRegion;
+    }
+
     private Mat binDigitRegion;
+
+    private CardFonts.FontType fontType;
 
     public CVRegion(Mat graySrc) {
         super(graySrc);
         binDigitRegion = null;
+        fontType = CardFonts.FontType.UNKNOWN;
     }
 
     @Override
@@ -136,6 +139,10 @@ public class CVRegion extends ImgSeparator {
         }
         output.sort();
         paintDigits(output.toSimpleList());
+    }
+
+    public CardFonts.FontType getFontType() {
+        return fontType;
     }
 
     final static class Filter extends ImgFilter {
@@ -388,9 +395,10 @@ public class CVRegion extends ImgSeparator {
     @Override
     public void digitSeparate() throws Exception {
         super.digitSeparate();
-        Mat binDigits = new Mat(grayMat, getRectOfDigitRow());
-        CVFontType.FontType fontType = CVFontType.getFontType(binDigits);
-        if (fontType == CVFontType.FontType.LIGHT_FONT) {
+        Mat binDigits = new Mat(grayMat, getRectOfDigitRow()).clone();
+        CardFonts fonts = CVFontType.getFontType(binDigits);
+        CardFonts.FontType type = fonts.getType();
+        if (type == CardFonts.FontType.LIGHT_FONT) {
             Mat sqKernel = Imgproc.getStructuringElement(Imgproc.MORPH_RECT, new Size(5, 5));
 
             Mat dst0 = new Mat();
@@ -408,13 +416,12 @@ public class CVRegion extends ImgSeparator {
             Imgproc.morphologyEx(dst1, dst1, Imgproc.MORPH_CLOSE, Imgproc.getStructuringElement(Imgproc.MORPH_RECT, new Size(3, 3)));
             Imgproc.dilate(dst1, binDigits, Imgproc.getStructuringElement(Imgproc.MORPH_RECT, new Size(1, 5)));
         }
-        if (fontType == CVFontType.FontType.BLACK_FONT || fontType == CVFontType.FontType.UNKNOWN) {
-            final int thresh = 60;
-            Imgproc.threshold(binDigits, binDigits, thresh, 255, Imgproc.THRESH_BINARY_INV);
-            Imgproc.medianBlur(binDigits, binDigits, 3);
+        if (type == CardFonts.FontType.BLACK_FONT || type == CardFonts.FontType.UNKNOWN) {
+            binDigits = fonts.getFonts();
         }
         this.binDigitRegion = binDigits;
-//        Debug.imshow(CVFontType.fontTypeToString(fontType), binDigits);
+        this.fontType = type;
+//        Debug.imshow(CardFonts.fontTypeToString(fonts.getType()), binDigits);
         setSingleDigits();
     }
 
@@ -422,7 +429,7 @@ public class CVRegion extends ImgSeparator {
      * remove left and right edge of id region
      * @param rect
      */
-    private void cutEdgeOfX(Rect rect) {
+    protected void cutEdgeOfX(Rect rect) {
         Mat dst = new Mat();
         Imgproc.GaussianBlur(grayMat, dst, new Size(13, 13), 0);
         Imgproc.Canny(dst, dst, 300, 600, 5, true);
@@ -489,5 +496,41 @@ public class CVRegion extends ImgSeparator {
         }
         rect.x = left;
         rect.width = right - left;
+    }
+
+    @Override
+    protected Rect cutEdgeOfY(Mat binDigitRegion) {
+        int cols = binDigitRegion.cols();
+        int rows = binDigitRegion.rows();
+        byte origin[] = new byte[rows * cols];
+        binDigitRegion.get(0, 0, origin);
+        int upperY = 0, lowerY = 0;
+        boolean white = false;
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                if (origin[i * cols + j] != 0) {
+                    white = true;
+                    break;
+                }
+            }
+            if (white) {
+                upperY = i;
+                break;
+            }
+        }
+        white = false;
+        for (int i = rows - 1; i >= 0; i--) {
+            for (int j = 0; j < cols; j++) {
+                if (origin[i * cols + j] != 0) {
+                    white = true;
+                    break;
+                }
+            }
+            if (white) {
+                lowerY = i;
+                break;
+            }
+        }
+        return new Rect(0, upperY, cols, lowerY - upperY);
     }
 }

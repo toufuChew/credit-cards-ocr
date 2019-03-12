@@ -1,4 +1,4 @@
-package cvImgUtil;
+package cv.imgutils;
 
 import java.util.*;
 

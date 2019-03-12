@@ -1,10 +1,10 @@
-package cvOverride;
+package cv.override;
 
+import cv.imgutils.CardFonts;
 import debug.Debug;
 import org.opencv.core.*;
 import org.opencv.imgproc.Imgproc;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -20,21 +20,16 @@ public class CVFontType {
     // segments numb of font
     private static final int fontSegments = 23;
 
-    public enum FontType {
-        BLACK_FONT, // means Typographic font
-        LIGHT_FONT, // means Bump font
-        UNKNOWN,
-    }
-
     /**
      * recognize the font type
      * @param gray0 1-channel image cropped
      * @return the region's font type
      */
-    public static FontType getFontType(Mat gray0) {
+    public static CardFonts getFontType(Mat gray0) {
         int cols = gray0.cols();
         int rows = gray0.rows();
-        FontType type = FontType.LIGHT_FONT;
+        CardFonts cardFonts = new CardFonts();
+        cardFonts.setType(CardFonts.FontType.LIGHT_FONT);
 //        2.0
 //        Mat hsv = new Mat();
 //        Imgproc.cvtColor(src0, hsv, Imgproc.COLOR_BGR2HSV);
@@ -45,16 +40,17 @@ public class CVFontType {
 
 //        3.0
         Debug.s();
-        int thresh = 60;
+        final int thresh = 60;
         Mat bin = new Mat();
         Imgproc.threshold(gray0, bin, thresh, 255, Imgproc.THRESH_BINARY_INV);
         Imgproc.medianBlur(bin, bin, 3);
+        cardFonts.setFonts(bin);
         int whiteBits = bitwise_sum(bin);
 
         List<MatOfPoint> contours = new ArrayList<>();
         Imgproc.findContours(bin, contours, new Mat(), Imgproc.RETR_EXTERNAL, Imgproc.CHAIN_APPROX_SIMPLE);
         if (contours.size() == 0) {
-            return type;
+            return cardFonts;
         }
         Collections.sort(contours, new Comparator<MatOfPoint>() {
             @Override
@@ -64,14 +60,12 @@ public class CVFontType {
         });
         double maxArea = Imgproc.contourArea(contours.get(0));
         double minArea = Imgproc.contourArea(contours.get(contours.size() - 1));
-        System.out.println("whiteBits=" + whiteBits + ", all =" + cols * rows);
         //origin almost black
         if (whiteBits < cols * rows * ratio)
-            return type;
+            return cardFonts;
         // too many small debris, it will affect separating character later
         if (contours.size() > fontSegments)
-            return type;
-        System.out.println("contours.size=" + contours.size());
+            return cardFonts;
         if (maxArea * ratio > minArea || maxArea == minArea) { // almost white (> 80%) or contains big white area
             Mat not = new Mat();
             Core.bitwise_not(bin, not);
@@ -84,27 +78,27 @@ public class CVFontType {
                 }
             });
             whiteBits = cols * rows - whiteBits;
+            cardFonts.setFonts(not);
 //            Debug.imshow("not", not);
         }
         final int checkTimes = 5;
         // check whether contains large amounts of debris
         if (contours.size() <= checkTimes * 2 || contours.size() > fontSegments) {
-            return type;
+            return cardFonts;
         }
         maxArea = Imgproc.contourArea(contours.get(checkTimes));
         double normal = Imgproc.contourArea(contours.get(contours.size() - checkTimes));
-        System.out.println("maxArea2=" + maxArea + ", normal=" + normal);
         if (maxArea * ratio * checkTimes > normal * 2) { // 0.25 * digit8 = digit1
-            return type;
+            return cardFonts;
         }
         try {
             Debug.e();
         } catch (Exception e) {
             e.printStackTrace();
         }
-        type = FontType.BLACK_FONT;
+        cardFonts.setType(CardFonts.FontType.BLACK_FONT);
 //        Debug.imshow(fontTypeToString(type), bin);
-        return type;
+        return cardFonts;
     }
 
     private static int bitwise_sum(Mat bin0) {
@@ -121,16 +115,4 @@ public class CVFontType {
         return sum;
     }
 
-    public static String fontTypeToString(FontType type) {
-        if (type == FontType.LIGHT_FONT) {
-            return "FontType.LIGHT_FONT";
-        }
-        else if (type == FontType.BLACK_FONT) {
-            return "FontType.BLACK_FONT";
-        }
-        else if (type == FontType.UNKNOWN) {
-            return "FontType.UNKNOWN";
-        }
-        return "";
-    }
 }

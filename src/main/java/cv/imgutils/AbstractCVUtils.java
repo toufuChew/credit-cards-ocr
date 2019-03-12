@@ -1,4 +1,4 @@
-package cvImgUtil;
+package cv.imgutils;
 
 import org.opencv.core.Mat;
 import org.opencv.core.Size;

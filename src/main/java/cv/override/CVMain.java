@@ -1,14 +1,11 @@
-package cvOverride;
+package cv.override;
 
-import cvImgUtil.RectFilter;
-import cvImgUtil.SysAsset;
+import cv.imgutils.RectFilter;
+import cv.imgutils.SysAsset;
 import debug.Debug;
 import imgToText.TessReg;
 import org.opencv.core.*;
 import org.opencv.imgproc.Imgproc;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import static java.lang.System.exit;
 import static org.opencv.imgproc.Imgproc.*;
@@ -41,7 +38,7 @@ public class CVMain {
 
 
     static void canny2() {
-        String fileName = "E.jpg";
+        String fileName = "C.jpg";
         Mat gray = CVGrayTransfer.grayTransferBeforeScale(fileName, false);
         Debug.log("gray.width = " + gray.cols() + ", gray.height = " + gray.rows());
         boolean findBright = false;
