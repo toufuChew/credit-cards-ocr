@@ -14,7 +14,7 @@ import org.opencv.core.Mat;
 import org.opencv.core.Rect;
 import org.opencv.imgcodecs.Imgcodecs;
 
-import java.io.File;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,14 +44,16 @@ public class DataSet {
     public static void writeDataSetImg(List<Mat> set) {
         File f = Debug.newPropertyFile("../dataset/");
         long num = 0;
-//        if (f.isDirectory()) {
-//            num = f.listFiles().length;
-//        }
+        if (f.isDirectory()) {
+            num = f.listFiles().length;
+        }
+        long footprint = num;
         for (Mat m : set) {
-            String path = f.getPath() + "/" + num + ".jpg";
+            String path = f.getPath() + "/" + num + ".tif";
             Imgcodecs.imwrite(path, m);
             ++num;
         }
+        System.err.println("Image data has been created to train from " + footprint + " - " + (num-1) + ".tif!");
     }
 
     static class Producer extends CVRegion {
@@ -116,26 +118,62 @@ public class DataSet {
     }
 
     public static void main(String []args) {
-        Debug.s();
-        String fileName = "E.jpg";
-        Mat gray = CVGrayTransfer.grayTransferBeforeScale(fileName, false);
-        Debug.log("gray.width = " + gray.cols() + ", gray.height = " + gray.rows());
-        Producer producer = new Producer(gray);
-        Rect mainRect = findMainRect(producer);
-        producer.setRectOfDigitRow(mainRect);
-        List<Mat> normalizedImg = null;
+        String files[] = {
+                "Credit3.jpg",
+                "crop.jpg",
+                "E.jpg",
+                "F.jpg",
+                "O.jpg",
+                "P.jpg",
+                "H.jpg"
+        };
+        trainedBox();
+        for (String fileName : files) {
+            Debug.s();
+            Mat gray = CVGrayTransfer.grayTransferBeforeScale(fileName, false);
+            Debug.log("gray.width = " + gray.cols() + ", gray.height = " + gray.rows());
+            Producer producer = new Producer(gray);
+            Rect mainRect = findMainRect(producer);
+            producer.setRectOfDigitRow(mainRect);
+            List<Mat> normalizedImg = null;
+            try {
+                producer.digitSeparate();
+                normalizedImg = resizeDataSetImg(producer.getMatListOfDigit());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            writeDataSetImg(normalizedImg);
+            try {
+                Debug.e();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public static void trainedBox() {
+        File f = Debug.newPropertyFile("tessBox/card.font.exp0.box");
         try {
-            producer.digitSeparate();
-            normalizedImg = resizeDataSetImg(producer.getMatListOfDigit());
-        } catch (Exception e) {
+            BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream(f)));
+            String txt;
+            String out = "";
+            while ((txt = in.readLine()) != null) {
+                int no = Integer.valueOf(txt.substring(txt.lastIndexOf(' ') + 1, txt.length()));
+                if (no >= 39)
+                    no --;
+                txt = txt.substring(0, txt.lastIndexOf(' ') + 1) + no + "\n";
+                out += txt;
+            }
+            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(f)));
+            bw.write(out);
+            bw.flush();
+            bw.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
             e.printStackTrace();
         }
-        writeDataSetImg(normalizedImg);
-        try {
-            Debug.e();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        exit(1);
     }
 
 }

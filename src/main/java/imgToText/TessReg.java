@@ -24,12 +24,11 @@ public class TessReg {
 
     public static void init(){
         mTess = new TessBaseAPI();
-        String property = System.getProperty("user.dir");
-        if (mTess.Init(System.getenv("TESSDATA_PREFIX") + "/tessdata", "eng") != 0) {
+        if (mTess.Init(System.getenv("TESSDATA_PREFIX"), "eng") != 0) {
             System.err.println("Could not initialize tesseract.");
             System.exit(1);
         }
-
+//        String property = System.getProperty("user.dir");
 //        String datapath = property + path;
 //        if (mTess.Init(datapath, "idcard") != 0){
 //            System.err.println("self definition error: Could not initialize tesseract.");

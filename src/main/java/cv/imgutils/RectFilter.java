@@ -11,7 +11,7 @@ import java.util.List;
  */
 public interface RectFilter {
     int MIN_AREA = 10;
-    float MIN_HEIGHT_RATE = 0.028f;
+    float MIN_HEIGHT_RATE = 0.038f;
     float MAX_HEIGHT_RATE = 0.15f;
     float MIN_WIDTH_RATE = 0.12f;
     /**

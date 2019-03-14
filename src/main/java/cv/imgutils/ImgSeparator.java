@@ -1,5 +1,6 @@
 package cv.imgutils;
 
+import cv.override.CVFontType;
 import cv.override.CVGrayTransfer;
 import debug.Debug;
 import org.opencv.core.*;
@@ -364,10 +365,9 @@ public abstract class ImgSeparator implements RectSeparator, DigitSeparator{
      * @param cutting
      * @return
      */
-    protected int getDigitWidth(List<Integer> cutting) {
+    protected int getDigitWidth(List<Integer> cutting) throws Exception {
         if ((cutting.size() & 0x1) == 1) {
-            System.err.println("ImgSeparator error: cutting.size() cannot be odd number in function getDigitWidth(List<Integer> c, List<Integer> cntArea)");
-            System.exit(1);
+            throw new Exception("ImgSeparator error: cutting.size() cannot be odd number in function getDigitWidth(List<Integer> c");
         }
         final int window = 5;
         int [][]width = new int[2][cutting.size() >> 1];
@@ -433,39 +433,24 @@ public abstract class ImgSeparator implements RectSeparator, DigitSeparator{
      * @param m binary image of id region
      * @throws Exception
      */
-    @SuppressWarnings("unused")
+
     public void setSingleDigits(Mat m) throws Exception {
-        int []x = calcHistOfXY(m, true);
-        int cur = 0;
-        List<Integer> cutting = new LinkedList<>();
-        while (true) {
-            int next = findNext(x, cur);
-            if (next >= x.length)
-                break;
-            cutting.add(next);
-            cur = next;
+        if (m.type() != CvType.CV_8UC1) {
+            throw new Exception("ImgSeparator error: Mat m.type is not CvType.CV_8UC1 which is " + CvType.typeToString(m.type()) + " in function setSingleDigits(Mat m).");
         }
-
-        int ref = getDigitWidth(cutting);
-        if (ref < 0)
-            return;
-
-        List<Integer> contains = new ArrayList<>();
-        for (int i = 1; i < cutting.size(); i++) {
-            if ((i & 0x1) == 0)
-                continue;
-            int x1 = cutting.get(i - 1);
-            int x2 = cutting.get(i);
-            List<MatOfPoint> cnt = new ArrayList<>();
-            Mat crop = new Mat(m, new Rect(x1, 0, x2 - x1, m.rows()));
-            Imgproc.findContours(crop, cnt, new Mat(), Imgproc.RETR_EXTERNAL, Imgproc.CHAIN_APPROX_SIMPLE);
-            int sum = 0;
-            for (MatOfPoint mp : cnt)
-                sum += Imgproc.contourArea(mp);
-            contains.add(sum);
+        final float minHeight = 0.5f * m.rows();
+        final float aspectRatio = 7;
+        List<MatOfPoint> contours = new ArrayList<>();
+        Imgproc.findContours(m, contours, new Mat(), Imgproc.RETR_EXTERNAL, Imgproc.CHAIN_APPROX_SIMPLE);
+        for (MatOfPoint matOfPoint : contours) {
+            Rect digitRect = Imgproc.boundingRect(matOfPoint);
+            if (digitRect.height > minHeight) {
+                if (aspectRatio * digitRect.width > digitRect.height) {
+                    matListOfDigit.add(new Mat(m, digitRect));
+//                    Debug.imshow("", new Mat(m, digitRect));
+                }
+            }
         }
-        simpleCombine(cutting, contains, ref);
-        paintDigits(cutting);
     }
 
     abstract public void split(SplitList splitList);
@@ -489,9 +474,9 @@ public abstract class ImgSeparator implements RectSeparator, DigitSeparator{
             dst = CVGrayTransfer.resizeMat(dst, 380, false);
             matListOfDigit.add(dst);
         }
-        Mat dst = new Mat();
-        Core.vconcat(matListOfDigit, dst);
-        Debug.imshow("concat", dst);
+//        Mat dst = new Mat();
+//        Core.vconcat(matListOfDigit, dst);
+//        Debug.imshow("concat", dst);
     }
 
     abstract protected void cutEdgeOfX(Rect rect);

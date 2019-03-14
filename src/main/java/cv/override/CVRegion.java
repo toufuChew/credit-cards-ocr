@@ -42,7 +42,9 @@ public class CVRegion extends ImgSeparator {
             if (node.width() > upperWidth) {
                 int x = node.getStartPointX() + lowerWidth;
                 int spx = splitX(buff, x, x + window);
-                splitList.split(i, spx);
+                if (spx > 0) {
+                    splitList.split(i, spx);
+                }
             }
         }
     }
@@ -112,6 +114,10 @@ public class CVRegion extends ImgSeparator {
 
     @Override
     public void setSingleDigits() throws Exception {
+        if (fontType == CardFonts.FontType.BLACK_FONT) {
+            super.setSingleDigits(binDigitRegion);
+            return;
+        }
         int []x = calcHistOfXY(binDigitRegion, true);
         int cur = 0;
         List<Integer> cutting = new LinkedList<>();
@@ -341,14 +347,14 @@ public class CVRegion extends ImgSeparator {
                         rect = maxRect;
                     }
                     Debug.log(maxRect + ", score: " + score + ", index: " + t);
+//                    Debug.imshow("maxRect", new Mat(src, maxRect));
                 }
+//                Debug.imshow("", new Mat(src, br));
             }
         }
         if (rect == null)
             return null;
         Debug.log(rect);
-//        Mat m =drawRectRegion(src, rect); //debug
-//        Debug.imshow("", m);
         cutEdgeOfX(rect);
         try {
             Debug.e();

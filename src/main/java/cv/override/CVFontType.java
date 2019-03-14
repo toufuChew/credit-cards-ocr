@@ -46,7 +46,7 @@ public class CVFontType {
         Imgproc.medianBlur(bin, bin, 3);
         cardFonts.setFonts(bin);
         int whiteBits = bitwise_sum(bin);
-
+//        Debug.imshow("", bin);
         List<MatOfPoint> contours = new ArrayList<>();
         Imgproc.findContours(bin, contours, new Mat(), Imgproc.RETR_EXTERNAL, Imgproc.CHAIN_APPROX_SIMPLE);
         if (contours.size() == 0) {
