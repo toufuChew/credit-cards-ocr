@@ -10,6 +10,7 @@ import java.util.concurrent.Executors;
 
 /**
  * Created by chenqiu on 3/12/19.
+ * @deprecated
  */
 public class TrainingCheck {
 

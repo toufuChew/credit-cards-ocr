@@ -137,12 +137,15 @@ public class CVRegion extends ImgSeparator {
         split(splitList);
         final int upperWidth = (int)(1.2f * ref);
         final int lowerWidth = (int)(0.6f * ref);
+        // remove Node that is a complete digit before merging
         SplitList output = splitList.out(upperWidth, lowerWidth);
+        // crack into several fragment to merge into a complete digit
         List<SplitList> buckets = splitList.crack(upperWidth);
         for (SplitList elem : buckets) {
             merge(elem);
             output.addAll(elem.toNodeList());
         }
+        // sort Nodes by its id, ensure the origin order of card numbers
         output.sort();
         paintDigits(output.toSimpleList());
     }

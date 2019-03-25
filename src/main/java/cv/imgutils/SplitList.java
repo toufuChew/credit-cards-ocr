@@ -71,6 +71,10 @@ public class SplitList {
         public Node clone() {
             return new Node(this.id, this.x1, this.x2);
         }
+
+        public String toString() {
+            return "[Node: [id: " + id + ", x1: " + x1 + ", x2: " + x2 + "]]";
+        }
     }
 
     /**

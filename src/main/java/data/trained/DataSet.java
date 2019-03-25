@@ -1,17 +1,11 @@
 package data.trained;
 
 import cv.imgutils.CardFonts;
-import cv.imgutils.RectFilter;
-import cv.imgutils.SysAsset;
-import cv.override.CVCluster;
 import cv.override.CVDilate;
 import cv.override.CVGrayTransfer;
 import cv.override.CVRegion;
 import debug.Debug;
-import imgToText.TessReg;
-import org.opencv.core.Core;
-import org.opencv.core.Mat;
-import org.opencv.core.Rect;
+import org.opencv.core.*;
 import org.opencv.imgcodecs.Imgcodecs;
 
 import java.io.*;
@@ -119,15 +113,14 @@ public class DataSet {
 
     public static void main(String []args) {
         String files[] = {
+                "F.jpg",
                 "Credit3.jpg",
                 "crop.jpg",
                 "E.jpg",
-                "F.jpg",
                 "O.jpg",
                 "P.jpg",
                 "H.jpg"
         };
-        trainedBox();
         for (String fileName : files) {
             Debug.s();
             Mat gray = CVGrayTransfer.grayTransferBeforeScale(fileName, false);
@@ -139,6 +132,12 @@ public class DataSet {
             try {
                 producer.digitSeparate();
                 normalizedImg = resizeDataSetImg(producer.getMatListOfDigit());
+                /**
+                 * debug
+                Mat dst = new Mat();
+                Core.vconcat(normalizedImg, dst);
+                Debug.imshow("concat", dst);
+                 **/
             } catch (Exception e) {
                 e.printStackTrace();
             }

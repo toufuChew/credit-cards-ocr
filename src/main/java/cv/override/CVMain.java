@@ -103,7 +103,6 @@ public class CVMain {
         } catch (Exception e) {
             e.printStackTrace();
         }
-//        CVCluster.helper.writeFile(cvRegion.getMatListOfDigit().get(0), SysAsset.debugPath() + "Cluster.jpg");
         CVCluster.helper.writeFile(new Mat(gray, bestRect), SysAsset.debugPath() + "Cluster.jpg");
     }
 
@@ -115,7 +114,6 @@ public class CVMain {
         canny2();
 //        edge();
         Debug.e();
-//        CVCluster.helper.writeFile(cvRegion.getMatListOfDigit().get(1), SysAsset.debugPath() + "Cluster.jpg");
     }
 
     static void edge() {

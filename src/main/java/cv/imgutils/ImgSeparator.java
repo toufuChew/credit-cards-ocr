@@ -442,11 +442,19 @@ public abstract class ImgSeparator implements RectSeparator, DigitSeparator{
         final float aspectRatio = 7;
         List<MatOfPoint> contours = new ArrayList<>();
         Imgproc.findContours(m, contours, new Mat(), Imgproc.RETR_EXTERNAL, Imgproc.CHAIN_APPROX_SIMPLE);
+        List<Integer> axisX = new ArrayList<>();
         for (MatOfPoint matOfPoint : contours) {
             Rect digitRect = Imgproc.boundingRect(matOfPoint);
             if (digitRect.height > minHeight) {
                 if (aspectRatio * digitRect.width > digitRect.height) {
-                    matListOfDigit.add(new Mat(m, digitRect));
+                    // to sort the contours
+                    int index;
+                    for (index = 0; index < axisX.size(); index++) {
+                        if (axisX.get(index) > digitRect.x)
+                            break;
+                    }
+                    matListOfDigit.add(index, new Mat(m, digitRect));
+                    axisX.add(index, digitRect.x);
 //                    Debug.imshow("", new Mat(m, digitRect));
                 }
             }
@@ -474,9 +482,6 @@ public abstract class ImgSeparator implements RectSeparator, DigitSeparator{
             dst = CVGrayTransfer.resizeMat(dst, 380, false);
             matListOfDigit.add(dst);
         }
-//        Mat dst = new Mat();
-//        Core.vconcat(matListOfDigit, dst);
-//        Debug.imshow("concat", dst);
     }
 
     abstract protected void cutEdgeOfX(Rect rect);
@@ -505,7 +510,6 @@ public abstract class ImgSeparator implements RectSeparator, DigitSeparator{
         if (this.rectOfDigitRow.width == 0 || this.rectOfDigitRow.height == 0) {
             throw new Exception("ImgSeparator error: digitSeparate need to set this.rectOfDigitRow whose width or height is 0.");
         }
-//        this.matListOfDigit = Arrays.asList(bin);
     }
 
     public List<Mat> getMatListOfDigit() {
