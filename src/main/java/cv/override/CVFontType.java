@@ -65,10 +65,13 @@ public class CVFontType {
             return cardFonts;
         final int checkTimes = 5;
         // too many small debris, it will affect separating character later
-        if (contours.size() > fontSegments || contours.size() <= checkTimes << 1)
+        if (contours.size() > fontSegments ||
+                (contours.size() > 1 && contours.size() <= checkTimes << 1)) {
             return cardFonts;
+        }
         if (maxArea * ratio > minArea || maxArea == minArea) { // almost white (> 80%) or contains big white area
             Mat not = new Mat();
+            int oldSize = contours.size();
             Core.bitwise_not(bin, not);
             contours = new ArrayList<>();
             Imgproc.findContours(not, contours, new Mat(), Imgproc.RETR_EXTERNAL, Imgproc.CHAIN_APPROX_SIMPLE);
@@ -79,7 +82,8 @@ public class CVFontType {
                 }
             });
             whiteBits = cols * rows - whiteBits;
-            cardFonts.setFonts(not);
+            if (oldSize < contours.size())
+                cardFonts.setFonts(not);
 //            Debug.imshow("not", not);
         }
         // check whether contains large amounts of debris

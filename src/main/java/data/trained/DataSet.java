@@ -117,10 +117,10 @@ public class DataSet {
 
     public static void main(String []args) {
         String files[] = {
+                "G.jpg",
                 "Debit.jpg",
                 "A2.jpg",
                 "B2.jpg",
-                "G.jpg",
                 "L.jpg",
                 "A.jpg",
                 "B.jpg",
