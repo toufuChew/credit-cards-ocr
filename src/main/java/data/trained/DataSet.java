@@ -85,7 +85,7 @@ public class DataSet {
         for ( ; ; findBright = true) {
             Mat dilate = CVDilate.fastDilate(gray, findBright);
 //            Debug.imshow(fileName + "[gray]", gray);
-            Debug.imshow(fileName, dilate);
+//            Debug.imshow(fileName, dilate);
             Rect idRect = null;
             chose = false;
             try {
@@ -103,7 +103,7 @@ public class DataSet {
                 if (chose) {
                     bestRect = idRect;
                 }
-                Debug.imshow("idRect", new Mat(gray, idRect));
+//                Debug.imshow("idRect", new Mat(gray, idRect));
             }
             if (findBright) break;
         }
@@ -111,21 +111,25 @@ public class DataSet {
             System.err.println("OCR Failed.");
             exit(1);
         }
-        Debug.imshow("best", new Mat(gray, bestRect));
+//        Debug.imshow("best", new Mat(gray, bestRect));
         return bestRect;
     }
 
     public static void main(String []args) {
         String files[] = {
-                "O.jpg",
-                "1553694831760.jpg",
+                "Debit.jpg",
+                "A2.jpg",
+                "B2.jpg",
+                "G.jpg",
+                "L.jpg",
                 "A.jpg",
                 "B.jpg",
+                "E.jpg",
+                "O.jpg",
                 "C.jpg",
                 "F.jpg",
                 "Credit3.jpg",
                 "crop.jpg",
-                "E.jpg",
                 "P.jpg",
                 "H.jpg"
         };
@@ -140,6 +144,9 @@ public class DataSet {
             try {
                 producer.digitSeparate();
                 normalizedImg = resizeDataSetImg(producer.getMatListOfDigit());
+                Mat dst = new Mat();
+                Core.vconcat(normalizedImg, dst);
+                Debug.imshow("concat", dst);
                 /**
                  * debug
                 Mat dst = new Mat();

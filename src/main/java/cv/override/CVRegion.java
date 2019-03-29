@@ -344,14 +344,14 @@ public class CVRegion extends ImgSeparator {
                 List<Rect> separates = this.rectSeparate(src, br);
                 for (Rect r : separates) {
                     Mat roi = drawRectRegion(src, r);
-                    Debug.imshow("roi", new Mat(src, r));
+//                    Debug.imshow("roi", new Mat(src, r));
                     filter.findMaxRect(roi, r);
                     int score = filter.IDRegionSimilarity(roi, r, src.rows(), src.cols());
                     if (score > maxScore) {
                         maxScore = score;
                         rect = r;
                     }
-                    Debug.imshow("roi2", new Mat(src, r));
+//                    Debug.imshow("roi2", new Mat(src, r));
                     Debug.log(r + ", score: " + score + ", index: " + t);
 //                    Debug.imshow("maxRect", new Mat(src, maxRect));
                 }

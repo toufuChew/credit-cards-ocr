@@ -36,7 +36,13 @@ public class ImgFilter implements RectFilter {
             return origin;
         if (r.y > (1 - this.MIN_HEIGHT_RATE) * rows)
             return origin;
-        origin += r.y * this.Y_POS_SCORE;
+        int y_score = 9;
+        int bottom = r.y + r.height;
+        if (r.y > rows * 0.8)
+            y_score = 5;
+        if (bottom > rows * 0.9)
+            y_score = 3;
+        origin += r.y * y_score;
         float avgSimilarity = 0;
         List<MatOfPoint> cnt = new ArrayList<>();
         Imgproc.findContours(m, cnt, new Mat(), Imgproc.RETR_EXTERNAL, Imgproc.CHAIN_APPROX_SIMPLE);
@@ -47,7 +53,7 @@ public class ImgFilter implements RectFilter {
             double cntArea = Imgproc.contourArea(contour);
             int frameSize = rect.width * r.height;
             avgSimilarity += (cntArea / frameSize);
-            origin += rect.width * WIDTH_SCORE + rect.height * HEIGHT_SCORE;
+            origin += cntArea;
         }
         avgSimilarity /= cnt.size();
         origin *= avgSimilarity;
@@ -73,9 +79,9 @@ public class ImgFilter implements RectFilter {
             int frameArea = Core.countNonZero(new Mat(m, new Rect(rect.x, r.y, rect.width, r.height)));
             if (frameArea < frameSize * FULL_AREA_RATIO ||
                     (rect.height < r.height * FRAME_H_RATIO && rect.width > minWidth)) {
-                Debug.log(frameArea);
-                Debug.log(frameSize * FULL_AREA_RATIO);
-                Debug.imshow("inner", new Mat(m, new Rect(rect.x, r.y, rect.width, r.height)));
+//                Debug.log(frameArea);
+//                Debug.log(frameSize * FULL_AREA_RATIO);
+//                Debug.imshow("inner", new Mat(m, new Rect(rect.x, r.y, rect.width, r.height)));
                 if (center < mainCenter) {
                     r.width -= (center - r.x);
                     r.x = center;

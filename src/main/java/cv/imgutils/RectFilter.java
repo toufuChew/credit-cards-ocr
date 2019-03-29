@@ -26,7 +26,6 @@ public interface RectFilter {
 
     int HEIGHT_SCORE = 6;
     int WIDTH_SCORE = 3;
-    int Y_POS_SCORE = 1;
     int IDRegionSimilarity(Mat m, Rect r, int rows, int cols);
 
     float FULL_AREA_RATIO = 0.8f;

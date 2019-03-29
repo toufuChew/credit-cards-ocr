@@ -125,7 +125,7 @@ public abstract class ImgSeparator implements RectSeparator, DigitSeparator{
 
         final int normalH = (int)(RectFilter.MAX_HEIGHT_RATE * rows);
         // when continuous thin area is too long, assert fail
-        final int thinW = (int)(RectFilter.MIN_WIDTH_RATE * len) << 1;
+        final int thinW = (int)(RectFilter.MIN_WIDTH_RATE * len);
         final int normalW = (int)(0.1 * len);
         int cw = 0; // continuous width that fitted normal height
         int ctl = 0; // continuous thin len
