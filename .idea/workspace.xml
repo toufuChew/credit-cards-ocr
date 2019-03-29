@@ -3,11 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="99698a85-c4c2-4622-89f7-faac30a2dcc5" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cv/imgutils/ImgFilter.java" afterPath="$PROJECT_DIR$/src/main/java/cv/imgutils/ImgFilter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cv/imgutils/ImgSeparator.java" afterPath="$PROJECT_DIR$/src/main/java/cv/imgutils/ImgSeparator.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cv/imgutils/RectFilter.java" afterPath="$PROJECT_DIR$/src/main/java/cv/imgutils/RectFilter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cv/override/CVFontType.java" afterPath="$PROJECT_DIR$/src/main/java/cv/override/CVFontType.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/cv/override/CVRegion.java" afterPath="$PROJECT_DIR$/src/main/java/cv/override/CVRegion.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/data/trained/DataSet.java" afterPath="$PROJECT_DIR$/src/main/java/data/trained/DataSet.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -42,7 +39,7 @@
       <file leaf-file-name="DataSet.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/data/trained/DataSet.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-15">
+            <state relative-caret-position="-75">
               <caret line="113" column="20" lean-forward="true" selection-start-line="113" selection-start-column="20" selection-end-line="113" selection-end-column="20" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -51,11 +48,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CVRegion.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="CVRegion.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/cv/override/CVRegion.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="512">
-              <caret line="435" column="26" lean-forward="true" selection-start-line="435" selection-start-column="26" selection-end-line="435" selection-end-column="26" />
+            <state relative-caret-position="96">
+              <caret line="409" column="45" lean-forward="false" selection-start-line="409" selection-start-column="45" selection-end-line="409" selection-end-column="45" />
               <folding />
             </state>
           </provider>
@@ -90,6 +87,18 @@
             <state relative-caret-position="360">
               <caret line="28" column="0" lean-forward="false" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CVFontType.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/cv/override/CVFontType.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="418">
+              <caret line="88" column="56" lean-forward="true" selection-start-line="88" selection-start-column="56" selection-end-line="88" selection-end-column="56" />
+              <folding>
+                <element signature="e#816#829#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -172,7 +181,6 @@
         <option value="$PROJECT_DIR$/src/main/java/cv/override/CVGrayTransfer.java" />
         <option value="$PROJECT_DIR$/src/main/java/data/trained/TrainningCheck.java" />
         <option value="$PROJECT_DIR$/src/main/java/imgToText/TessReg.java" />
-        <option value="$PROJECT_DIR$/src/main/java/cv/override/CVFontType.java" />
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/src/main/java/cv/override/CVCluster.java" />
         <option value="$PROJECT_DIR$/src/main/java/data/trained/TrainingCheck.java" />
@@ -183,6 +191,7 @@
         <option value="$PROJECT_DIR$/src/main/java/cv/imgutils/ImgFilter.java" />
         <option value="$PROJECT_DIR$/src/main/java/data/trained/DataSet.java" />
         <option value="$PROJECT_DIR$/src/main/java/cv/override/CVRegion.java" />
+        <option value="$PROJECT_DIR$/src/main/java/cv/override/CVFontType.java" />
       </list>
     </option>
   </component>
@@ -1154,12 +1163,12 @@
       <workItem from="1552285859910" duration="20258000" />
       <workItem from="1552368437111" duration="26567000" />
       <workItem from="1552577087317" duration="2420000" />
-      <workItem from="1553407639831" duration="74335000" />
+      <workItem from="1553407639831" duration="76240000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="640639000" />
+    <option name="totallyTimeSpent" value="642544000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1534,16 +1543,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cv/override/CVFontType.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="525">
-          <caret line="52" column="29" lean-forward="false" selection-start-line="52" selection-start-column="29" selection-end-line="52" selection-end-column="29" />
-          <folding>
-            <element signature="e#816#829#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/cv/imgutils/ImgFilter.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="916">
@@ -1571,16 +1570,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/data/trained/DataSet.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-15">
-          <caret line="113" column="20" lean-forward="true" selection-start-line="113" selection-start-column="20" selection-end-line="113" selection-end-column="20" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/cv/override/CVGrayTransfer.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="218">
@@ -1589,11 +1578,31 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/data/trained/DataSet.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-75">
+          <caret line="113" column="20" lean-forward="true" selection-start-line="113" selection-start-column="20" selection-end-line="113" selection-end-column="20" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/cv/override/CVRegion.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="512">
-          <caret line="435" column="26" lean-forward="true" selection-start-line="435" selection-start-column="26" selection-end-line="435" selection-end-column="26" />
+        <state relative-caret-position="96">
+          <caret line="409" column="45" lean-forward="false" selection-start-line="409" selection-start-column="45" selection-end-line="409" selection-end-column="45" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cv/override/CVFontType.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="418">
+          <caret line="88" column="56" lean-forward="true" selection-start-line="88" selection-start-column="56" selection-end-line="88" selection-end-column="56" />
+          <folding>
+            <element signature="e#816#829#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>

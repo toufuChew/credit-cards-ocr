@@ -432,7 +432,7 @@ public class CVRegion extends ImgSeparator {
         }
         this.binDigitRegion = binDigits;
         this.fontType = type;
-//        Debug.imshow(CardFonts.fontTypeToString(fonts.getType()), binDigits);
+        Debug.imshow(CardFonts.fontTypeToString(fonts.getType()), binDigits);
         setSingleDigits();
     }
 

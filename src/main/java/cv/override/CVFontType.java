@@ -63,8 +63,9 @@ public class CVFontType {
         //origin almost black
         if (whiteBits < cols * rows * ratio)
             return cardFonts;
+        final int checkTimes = 5;
         // too many small debris, it will affect separating character later
-        if (contours.size() > fontSegments)
+        if (contours.size() > fontSegments || contours.size() <= checkTimes << 1)
             return cardFonts;
         if (maxArea * ratio > minArea || maxArea == minArea) { // almost white (> 80%) or contains big white area
             Mat not = new Mat();
@@ -81,9 +82,8 @@ public class CVFontType {
             cardFonts.setFonts(not);
 //            Debug.imshow("not", not);
         }
-        final int checkTimes = 5;
         // check whether contains large amounts of debris
-        if (contours.size() <= checkTimes * 2 || contours.size() > fontSegments) {
+        if (contours.size() > fontSegments) {
             return cardFonts;
         }
         maxArea = Imgproc.contourArea(contours.get(checkTimes));
