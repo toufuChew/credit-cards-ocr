@@ -76,7 +76,7 @@ public class DataSet {
         }
     }
 
-    public static Rect findMainRect(Producer producer) {
+    public static Rect findMainRect(Producer producer, String fileName) {
         boolean findBright = false;
         Mat gray = producer.grayMat;
         Rect bestRect = new Rect();
@@ -84,6 +84,8 @@ public class DataSet {
         boolean chose;
         for ( ; ; findBright = true) {
             Mat dilate = CVDilate.fastDilate(gray, findBright);
+//            Debug.imshow(fileName + "[gray]", gray);
+            Debug.imshow(fileName, dilate);
             Rect idRect = null;
             chose = false;
             try {
@@ -101,6 +103,7 @@ public class DataSet {
                 if (chose) {
                     bestRect = idRect;
                 }
+                Debug.imshow("idRect", new Mat(gray, idRect));
             }
             if (findBright) break;
         }
@@ -108,16 +111,21 @@ public class DataSet {
             System.err.println("OCR Failed.");
             exit(1);
         }
+        Debug.imshow("best", new Mat(gray, bestRect));
         return bestRect;
     }
 
     public static void main(String []args) {
         String files[] = {
+                "O.jpg",
+                "1553694831760.jpg",
+                "A.jpg",
+                "B.jpg",
+                "C.jpg",
                 "F.jpg",
                 "Credit3.jpg",
                 "crop.jpg",
                 "E.jpg",
-                "O.jpg",
                 "P.jpg",
                 "H.jpg"
         };
@@ -126,7 +134,7 @@ public class DataSet {
             Mat gray = CVGrayTransfer.grayTransferBeforeScale(fileName, false);
             Debug.log("gray.width = " + gray.cols() + ", gray.height = " + gray.rows());
             Producer producer = new Producer(gray);
-            Rect mainRect = findMainRect(producer);
+            Rect mainRect = findMainRect(producer, fileName);
             producer.setRectOfDigitRow(mainRect);
             List<Mat> normalizedImg = null;
             try {
@@ -141,7 +149,7 @@ public class DataSet {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            writeDataSetImg(normalizedImg);
+//            writeDataSetImg(normalizedImg);
             try {
                 Debug.e();
             } catch (Exception e) {

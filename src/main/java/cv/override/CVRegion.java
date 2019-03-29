@@ -339,25 +339,27 @@ public class CVRegion extends ImgSeparator {
             int maxScore = 0;
             for (int t = 0; t < detectDepth; t++) {
                 Rect br = Imgproc.boundingRect(contours.get(t));
-                Debug.log(br);
+//                Debug.log(br);
+//                Debug.imshow("br", new Mat(src, br));
                 List<Rect> separates = this.rectSeparate(src, br);
                 for (Rect r : separates) {
                     Mat roi = drawRectRegion(src, r);
-                    Rect maxRect = filter.findMaxRect(roi);
-                    int score = filter.IDRegionSimilarity(maxRect, src.rows(), src.cols());
+                    Debug.imshow("roi", new Mat(src, r));
+                    filter.findMaxRect(roi, r);
+                    int score = filter.IDRegionSimilarity(roi, r, src.rows(), src.cols());
                     if (score > maxScore) {
                         maxScore = score;
-                        rect = maxRect;
+                        rect = r;
                     }
-                    Debug.log(maxRect + ", score: " + score + ", index: " + t);
+                    Debug.imshow("roi2", new Mat(src, r));
+                    Debug.log(r + ", score: " + score + ", index: " + t);
 //                    Debug.imshow("maxRect", new Mat(src, maxRect));
                 }
-//                Debug.imshow("", new Mat(src, br));
             }
         }
         if (rect == null)
             return null;
-        Debug.log(rect);
+//        Debug.log(rect);
         cutEdgeOfX(rect);
         try {
             Debug.e();
