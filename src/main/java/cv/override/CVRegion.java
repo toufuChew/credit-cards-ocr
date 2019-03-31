@@ -339,8 +339,8 @@ public class CVRegion extends ImgSeparator {
             int maxScore = 0;
             for (int t = 0; t < detectDepth; t++) {
                 Rect br = Imgproc.boundingRect(contours.get(t));
-//                Debug.log(br);
-//                Debug.imshow("br", new Mat(src, br));
+                Debug.log("br: " + br);
+                Debug.imshow("br", new Mat(src, br));
                 List<Rect> separates = this.rectSeparate(src, br);
                 for (Rect r : separates) {
                     Mat roi = drawRectRegion(src, r);
@@ -352,14 +352,13 @@ public class CVRegion extends ImgSeparator {
                         rect = r;
                     }
 //                    Debug.imshow("roi2", new Mat(src, r));
-                    Debug.log(r + ", score: " + score + ", index: " + t);
+//                    Debug.log(r + ", score: " + score + ", index: " + t);
 //                    Debug.imshow("maxRect", new Mat(src, maxRect));
                 }
             }
         }
         if (rect == null)
             return null;
-//        Debug.log(rect);
         cutEdgeOfX(rect);
         try {
             Debug.e();
@@ -432,7 +431,7 @@ public class CVRegion extends ImgSeparator {
         }
         this.binDigitRegion = binDigits;
         this.fontType = type;
-        Debug.imshow(CardFonts.fontTypeToString(fonts.getType()), binDigits);
+//        Debug.imshow(CardFonts.fontTypeToString(fonts.getType()), binDigits);
         setSingleDigits();
     }
 
@@ -445,8 +444,9 @@ public class CVRegion extends ImgSeparator {
         Imgproc.GaussianBlur(grayMat, dst, new Size(13, 13), 0);
         Imgproc.Canny(dst, dst, 300, 600, 5, true);
         Imgproc.dilate(dst, dst, new Mat(), new Point(-1, -1), 1);
-
+        Debug.imshow("cut", dst);
         Mat m = new Mat(dst, rect);
+        Debug.imshow("cut0", m);
         byte buff[] = new byte[m.rows() * m.cols()];
         m.get(0, 0, buff);
         int rows = rect.height;

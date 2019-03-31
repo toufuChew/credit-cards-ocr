@@ -85,7 +85,7 @@ public class DataSet {
         for ( ; ; findBright = true) {
             Mat dilate = CVDilate.fastDilate(gray, findBright);
 //            Debug.imshow(fileName + "[gray]", gray);
-//            Debug.imshow(fileName, dilate);
+            Debug.imshow(fileName, dilate);
             Rect idRect = null;
             chose = false;
             try {
@@ -117,10 +117,11 @@ public class DataSet {
 
     public static void main(String []args) {
         String files[] = {
-                "G.jpg",
+                "1553951860046.jpg",
                 "Debit.jpg",
                 "A2.jpg",
                 "B2.jpg",
+                "G.jpg",
                 "L.jpg",
                 "A.jpg",
                 "B.jpg",
@@ -156,7 +157,7 @@ public class DataSet {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-//            writeDataSetImg(normalizedImg);
+//            writeDataSetImg(normalizedImg); // write out data to training
             try {
                 Debug.e();
             } catch (Exception e) {
