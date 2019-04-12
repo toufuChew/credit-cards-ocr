@@ -40,7 +40,7 @@ public class CVFontType {
 
 //        3.0
         Debug.s();
-        final int thresh = 60;
+        final int thresh = 50;
         Mat bin = new Mat();
         Imgproc.threshold(gray0, bin, thresh, 255, Imgproc.THRESH_BINARY_INV);
         Imgproc.medianBlur(bin, bin, 3);

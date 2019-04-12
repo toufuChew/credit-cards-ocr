@@ -58,13 +58,6 @@ public abstract class ImgSeparator implements RectSeparator, DigitSeparator{
 
         }
         return separates;
-//        drawLine(buff, edge.y * cols, cols);
-//        drawLine(buff, (edge.y + edge.height) * cols, cols);
-//        byte out[] = new byte[src.cols() * src.rows()];
-//        System.arraycopy(buff, edge.y * cols, out, edge.y * cols, edge.height * cols);
-//        Mat m = Mat.zeros(src.size(), src.type());
-//        m.put(0, 0, out);
-//        return m;
     }
 
     /**

@@ -337,9 +337,36 @@ public class CVRegion extends ImgSeparator {
             });
             final int detectDepth = Math.min(5, contours.size());
             int maxScore = 0;
+            List<Rect> brs = new ArrayList<>();
             for (int t = 0; t < detectDepth; t++) {
                 Rect br = Imgproc.boundingRect(contours.get(t));
-                Debug.log("br: " + br);
+                int v;
+                for (v = 0; v < brs.size(); v++) {
+                    Rect cell = brs.get(v);
+                    int bb = br.y + br.height;
+                    if (bb >= cell.y) {
+                        int bc = cell.y + cell.height;
+                        if (bb <= bc) {
+                            cell.y = Math.min(br.y, cell.y);
+                            // update height
+                            cell.height = bc - cell.y;
+                            break;
+                        }
+                        if (br.y <= bc) {
+                            cell.y = Math.min(br.y, cell.y);
+                            // update height
+                            cell.height = bb - cell.y;
+                            break;
+                        }
+                    }
+                }
+                if (v == brs.size())
+                    brs.add(br);
+
+
+            }
+            // detect region
+            for (Rect br : brs) {
                 Debug.imshow("br", new Mat(src, br));
                 List<Rect> separates = this.rectSeparate(src, br);
                 for (Rect r : separates) {
@@ -354,9 +381,11 @@ public class CVRegion extends ImgSeparator {
 //                    Debug.imshow("roi2", new Mat(src, r));
 //                    Debug.log(r + ", score: " + score + ", index: " + t);
 //                    Debug.imshow("maxRect", new Mat(src, maxRect));
+//                    Imgproc.rectangle(grayMat, new Point(r.x, r.y), new Point(r.x + r.width, r.y + r.height), new Scalar(0, 0, 255), 1);
                 }
             }
         }
+//        Debug.imshow("region-detection", grayMat);
         if (rect == null)
             return null;
         cutEdgeOfX(rect);
@@ -406,6 +435,7 @@ public class CVRegion extends ImgSeparator {
     public void digitSeparate() throws Exception {
         super.digitSeparate();
         Mat binDigits = new Mat(grayMat, getRectOfDigitRow()).clone();
+        Debug.writeFile(binDigits, "Cluster.tif");
         CardFonts fonts = CVFontType.getFontType(binDigits);
         CardFonts.FontType type = fonts.getType();
         if (type == CardFonts.FontType.LIGHT_FONT) {
@@ -431,6 +461,15 @@ public class CVRegion extends ImgSeparator {
         }
         this.binDigitRegion = binDigits;
         this.fontType = type;
+        Mat color = new Mat(binDigits.size(), CvType.CV_8UC3);
+        Imgproc.cvtColor(binDigits, color, Imgproc.COLOR_GRAY2BGR);
+        List<MatOfPoint> cnts = new ArrayList<>();
+        Imgproc.findContours(binDigits, cnts, new Mat(), Imgproc.RETR_EXTERNAL, Imgproc.CHAIN_APPROX_SIMPLE);
+        for (MatOfPoint cnt : cnts) {
+            Rect r = Imgproc.boundingRect(cnt);
+            Imgproc.rectangle(color, new Point(r.x, r.y), new Point(r.x + r.width, r.y + r.height), new Scalar(0, 0, 255), 1);
+        }
+        Debug.imshow("color", color);
 //        Debug.imshow(CardFonts.fontTypeToString(fonts.getType()), binDigits);
         setSingleDigits();
     }
@@ -444,9 +483,7 @@ public class CVRegion extends ImgSeparator {
         Imgproc.GaussianBlur(grayMat, dst, new Size(13, 13), 0);
         Imgproc.Canny(dst, dst, 300, 600, 5, true);
         Imgproc.dilate(dst, dst, new Mat(), new Point(-1, -1), 1);
-        Debug.imshow("cut", dst);
         Mat m = new Mat(dst, rect);
-        Debug.imshow("cut0", m);
         byte buff[] = new byte[m.rows() * m.cols()];
         m.get(0, 0, buff);
         int rows = rect.height;

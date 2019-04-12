@@ -1,10 +1,13 @@
 package data.trained;
 
+import cv.imgutils.AbstractCVUtils;
 import cv.imgutils.CardFonts;
+import cv.override.CVCluster;
 import cv.override.CVDilate;
 import cv.override.CVGrayTransfer;
 import cv.override.CVRegion;
 import debug.Debug;
+import imgPreProc.GrayTransfer;
 import org.opencv.core.*;
 import org.opencv.imgcodecs.Imgcodecs;
 
@@ -21,7 +24,7 @@ public class DataSet {
 
     public static final float aspectRation = 1.579f;
 
-    public static final int standardWidth = 280;
+    public static final int standardWidth = 28;
 
     static {
         System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
@@ -89,6 +92,7 @@ public class DataSet {
             Rect idRect = null;
             chose = false;
             try {
+//                Mat temp = CVGrayTransfer.resizeMat(fileName, false);
                 idRect = producer.digitRegion(dilate);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -103,7 +107,7 @@ public class DataSet {
                 if (chose) {
                     bestRect = idRect;
                 }
-//                Debug.imshow("idRect", new Mat(gray, idRect));
+                Debug.imshow("idRect", new Mat(gray, idRect));
             }
             if (findBright) break;
         }
@@ -111,28 +115,29 @@ public class DataSet {
             System.err.println("OCR Failed.");
             exit(1);
         }
-//        Debug.imshow("best", new Mat(gray, bestRect));
+        Debug.imshow("best", new Mat(gray, bestRect));
         return bestRect;
     }
 
     public static void main(String []args) {
         String files[] = {
-                "1553951860046.jpg",
+                "1555036805127.jpg",
                 "Debit.jpg",
+                "Credit.jpg",
+                "C.jpg",
+                "L.jpg",
                 "A2.jpg",
+                "B.jpg",
                 "B2.jpg",
                 "G.jpg",
-                "L.jpg",
                 "A.jpg",
                 "B.jpg",
                 "E.jpg",
                 "O.jpg",
-                "C.jpg",
                 "F.jpg",
                 "Credit3.jpg",
                 "crop.jpg",
                 "P.jpg",
-                "H.jpg"
         };
         for (String fileName : files) {
             Debug.s();

@@ -1,9 +1,11 @@
 package debug;
 
+import cv.imgutils.AbstractCVUtils;
 import imgUtil.AbstractUtils;
 import org.opencv.core.Mat;
 import org.opencv.highgui.HighGui;
 
+import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -15,9 +17,7 @@ import java.util.Map;
 /**
  * Created by chenqiu on 10/31/18.
  */
-public final class Debug extends AbstractUtils{
-
-    final static String DEBUG_DIR = "debug/";
+public final class Debug extends AbstractCVUtils {
 
     /**
      * debug code running time
@@ -32,10 +32,9 @@ public final class Debug extends AbstractUtils{
      * @param image
      * @throws IOException
      */
-    @Override
     public void writeImage(String path, BufferedImage image) throws IOException {
         File f = newPropertyDebugFile(path);
-        super.writeImage(f.getAbsolutePath(), image);
+        ImageIO.write(image, path.split("\\.")[1], f);
     }
 
     /**
@@ -109,5 +108,9 @@ public final class Debug extends AbstractUtils{
             HighGui.imshow(s[i], m[i]);
         }
         HighGui.waitKey();
+    }
+
+    @Override
+    public void writeFile(File f, String absolutePath) {
     }
 }

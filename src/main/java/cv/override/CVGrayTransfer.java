@@ -90,4 +90,10 @@ public class CVGrayTransfer implements CVLibs{
     public static Mat resizeMat(Mat m, int resizeWidth, int resizeHeight) {
         return grayUtils.scale(m, new Size(resizeWidth, resizeHeight));
     }
+
+    public static Mat resizeMat(String fileName, boolean pyr) {
+        Mat src = grayUtils.loadOriginFile(fileName);
+        final int mw = src.width() > 1024 ? 1024 : src.width();
+        return resizeMat(src, mw, pyr);
+    }
 }
