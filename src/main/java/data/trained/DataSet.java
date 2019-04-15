@@ -107,7 +107,7 @@ public class DataSet {
                 if (chose) {
                     bestRect = idRect;
                 }
-                Debug.imshow("idRect", new Mat(gray, idRect));
+//                Debug.imshow("idRect", new Mat(gray, idRect));
             }
             if (findBright) break;
         }
@@ -115,27 +115,26 @@ public class DataSet {
             System.err.println("OCR Failed.");
             exit(1);
         }
-        Debug.imshow("best", new Mat(gray, bestRect));
+//        Debug.imshow("best", new Mat(gray, bestRect));
         return bestRect;
     }
 
     public static void main(String []args) {
         String files[] = {
-                "1555036805127.jpg",
-                "Debit.jpg",
-                "Credit.jpg",
-                "C.jpg",
-                "L.jpg",
                 "A2.jpg",
                 "B.jpg",
                 "B2.jpg",
+                "Credit.jpg",
+                "Credit3.jpg",
+                "C.jpg",
+                "L.jpg",
+                "Debit.jpg",
                 "G.jpg",
                 "A.jpg",
                 "B.jpg",
                 "E.jpg",
                 "O.jpg",
                 "F.jpg",
-                "Credit3.jpg",
                 "crop.jpg",
                 "P.jpg",
         };
@@ -149,9 +148,11 @@ public class DataSet {
             List<Mat> normalizedImg = null;
             try {
                 producer.digitSeparate();
-                normalizedImg = resizeDataSetImg(producer.getMatListOfDigit());
-                Mat dst = new Mat();
-                Core.vconcat(normalizedImg, dst);
+                Mat dst = producer.getMatListOfDigit().get(0);
+                if (producer.getFontType() == CardFonts.FontType.LIGHT_FONT) {
+                    normalizedImg = resizeDataSetImg(producer.getMatListOfDigit());
+                    Core.vconcat(normalizedImg, dst);
+                }
                 Debug.imshow("concat", dst);
                 /**
                  * debug

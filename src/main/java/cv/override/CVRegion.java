@@ -115,7 +115,8 @@ public class CVRegion extends ImgSeparator {
     @Override
     public void setSingleDigits() throws Exception {
         if (fontType == CardFonts.FontType.BLACK_FONT) {
-            super.setSingleDigits(binDigitRegion);
+//            super.setSingleDigits(binDigitRegion);
+            matListOfDigit.add(new Mat(grayMat, getRectOfDigitRow()).clone());
             return;
         }
         int []x = calcHistOfXY(binDigitRegion, true);
@@ -259,6 +260,31 @@ public class CVRegion extends ImgSeparator {
             }
             return null;
         }
+
+        public void combineRect(List<Rect> combinedList, Rect input) {
+            int v;
+            for (v = 0; v < combinedList.size(); v++) {
+                Rect cell = combinedList.get(v);
+                int bb = input.y + input.height;
+                if (bb >= cell.y) {
+                    int bc = cell.y + cell.height;
+                    if (bb <= bc) {
+                        cell.y = Math.min(input.y, cell.y);
+                        // update height
+                        cell.height = bc - cell.y;
+                        break;
+                    }
+                    if (input.y <= bc) {
+                        cell.y = Math.min(input.y, cell.y);
+                        // update height
+                        cell.height = bb - cell.y;
+                        break;
+                    }
+                }
+            }
+            if (v == combinedList.size())
+                combinedList.add(input);
+        }
     }
 
     /**
@@ -340,34 +366,11 @@ public class CVRegion extends ImgSeparator {
             List<Rect> brs = new ArrayList<>();
             for (int t = 0; t < detectDepth; t++) {
                 Rect br = Imgproc.boundingRect(contours.get(t));
-                int v;
-                for (v = 0; v < brs.size(); v++) {
-                    Rect cell = brs.get(v);
-                    int bb = br.y + br.height;
-                    if (bb >= cell.y) {
-                        int bc = cell.y + cell.height;
-                        if (bb <= bc) {
-                            cell.y = Math.min(br.y, cell.y);
-                            // update height
-                            cell.height = bc - cell.y;
-                            break;
-                        }
-                        if (br.y <= bc) {
-                            cell.y = Math.min(br.y, cell.y);
-                            // update height
-                            cell.height = bb - cell.y;
-                            break;
-                        }
-                    }
-                }
-                if (v == brs.size())
-                    brs.add(br);
-
-
+                filter.combineRect(brs, br);
             }
             // detect region
             for (Rect br : brs) {
-                Debug.imshow("br", new Mat(src, br));
+//                Debug.imshow("br", new Mat(src, br));
                 List<Rect> separates = this.rectSeparate(src, br);
                 for (Rect r : separates) {
                     Mat roi = drawRectRegion(src, r);
@@ -379,7 +382,7 @@ public class CVRegion extends ImgSeparator {
                         rect = r;
                     }
 //                    Debug.imshow("roi2", new Mat(src, r));
-//                    Debug.log(r + ", score: " + score + ", index: " + t);
+//                    Debug.log(r + ", score: " + score);
 //                    Debug.imshow("maxRect", new Mat(src, maxRect));
 //                    Imgproc.rectangle(grayMat, new Point(r.x, r.y), new Point(r.x + r.width, r.y + r.height), new Scalar(0, 0, 255), 1);
                 }
@@ -437,6 +440,7 @@ public class CVRegion extends ImgSeparator {
         Mat binDigits = new Mat(grayMat, getRectOfDigitRow()).clone();
         Debug.writeFile(binDigits, "Cluster.tif");
         CardFonts fonts = CVFontType.getFontType(binDigits);
+//        Debug.imshow(CardFonts.fontTypeToString(fonts.getType()), binDigits);
         CardFonts.FontType type = fonts.getType();
         if (type == CardFonts.FontType.LIGHT_FONT) {
             Mat sqKernel = Imgproc.getStructuringElement(Imgproc.MORPH_RECT, new Size(5, 5));

@@ -40,7 +40,7 @@ public class CVFontType {
 
 //        3.0
         Debug.s();
-        final int thresh = 50;
+        final int thresh = 60;
         Mat bin = new Mat();
         Imgproc.threshold(gray0, bin, thresh, 255, Imgproc.THRESH_BINARY_INV);
         Imgproc.medianBlur(bin, bin, 3);
@@ -59,7 +59,7 @@ public class CVFontType {
             }
         });
         double maxArea = Imgproc.contourArea(contours.get(0));
-        double minArea = Imgproc.contourArea(contours.get(contours.size() - 1));
+        double minArea = Imgproc.contourArea(contours.get(contours.size() >> 1));
         //origin almost black
         if (whiteBits < cols * rows * ratio)
             return cardFonts;
@@ -82,12 +82,16 @@ public class CVFontType {
                 }
             });
             whiteBits = cols * rows - whiteBits;
+            if (contours.size() == 1) {
+                cardFonts.setType(CardFonts.FontType.BLACK_FONT);
+                return cardFonts;
+            }
             if (oldSize < contours.size())
                 cardFonts.setFonts(not);
 //            Debug.imshow("not", not);
         }
         // check whether contains large amounts of debris
-        if (contours.size() > fontSegments) {
+        if (contours.size() > fontSegments || contours.size() < checkTimes) {
             return cardFonts;
         }
         maxArea = Imgproc.contourArea(contours.get(checkTimes));

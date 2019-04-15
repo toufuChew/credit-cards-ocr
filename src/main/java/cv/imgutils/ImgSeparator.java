@@ -104,7 +104,7 @@ public abstract class ImgSeparator implements RectSeparator, DigitSeparator{
         }
         int line = pivot[2] - pivot[0];
 //        Debug.log("start: " + pivot[0] + ", end: " + pivot[2]);
-//        Debug.log("line: " + pivot[0] + "-"+ pivot[2]+ ", thresh: " + (cols * (RectFilter.MIN_WIDTH_RATE * 3)));
+//        Debug.log("line: " + len + ", thresh: " + (cols * (RectFilter.MIN_WIDTH_RATE * 3)));
         if (len < cols * (RectFilter.MIN_WIDTH_RATE * 3)) { // too short
             return region.clone();
         }
@@ -224,74 +224,6 @@ public abstract class ImgSeparator implements RectSeparator, DigitSeparator{
         int e = len + xy;
         for (int i = xy; i < e; i++) {
             buff[xy] = 0;
-        }
-    }
-
-    /**
-     * @deprecated as solution space too large
-     * @param cutting
-     */
-    private void localCombine(List<Integer> cutting) {
-        if ((cutting.size() & 0x1) == 1) {
-            System.err.println("ImgSeparator error: cutting.size() cannot be odd number in function combine(List<Integer> c)");
-            System.exit(1);
-        }
-        int cnt = cutting.size() >> 1;
-        int []boxes = {16, 17, 18, 19};
-        final int cap = 3;
-        for (int box : boxes) {
-            int []intervals = new int[box];
-            // all are 0 except the first box
-            if ((cnt - box) % cap != 0)
-                intervals[(cnt - box) / cap] = (cnt - box) % cap;
-            for (int i = (cnt - box) / cap - 1; i >= 0; i--)
-                intervals[i] = cap;
-
-            int saving = 0;
-            while (intervals[0] > 0) {
-                int mv;
-                // scan from right to left
-                for (mv = box - 1; mv > 0; mv--)
-                    if (intervals[mv] != 0)
-                        break;
-                --intervals[mv];
-                if (mv == box - 1) {
-                    saving += intervals[mv];
-                    intervals[mv] = 0;
-                    for (mv = box - 2; mv > 0; mv--)
-                        if (intervals[mv] != 0)
-                            break;
-                    --intervals[mv];
-                    ++saving;
-                }
-                for (saving++, mv++; mv < box; mv++) {
-                    if (intervals[mv] >= cap)
-                        continue;
-                    if (saving <= cap - intervals[mv]) {
-                        intervals[mv] += saving;
-                        saving = 0;
-                        break;
-                    }
-                    saving -= (cap - intervals[mv]);
-                    intervals[mv] = cap;
-                }
-                if (saving > 0) {
-                    for (mv = box - 1; mv > 0 && intervals[mv] != 0; mv--) {
-                        saving += intervals[mv];
-                        intervals[mv] = 0;
-                    }
-                    mv = box;
-                    while (mv > 0 && intervals[--mv] == 0);
-                    intervals[mv] -= 1;
-                    for (saving++, mv++; saving > 0; mv++) {
-                        intervals[mv] = Math.min(saving, cap);
-                        saving -= cap;
-                    }
-                }
-                saving = 0;
-                Debug.log(intervals);
-            }
-            return;
         }
     }
 
