@@ -7,6 +7,7 @@ import cv.override.CVRegion;
 import debug.Debug;
 import org.opencv.core.*;
 import org.opencv.imgcodecs.Imgcodecs;
+import org.opencv.imgproc.Imgproc;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -21,7 +22,7 @@ public class DataSet {
 
     public static final float aspectRation = 1.579f;
 
-    public static final int standardWidth = 280;
+    public static final int standardWidth = 28;
 
     static {
         System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
@@ -36,15 +37,15 @@ public class DataSet {
     }
 
     public static void writeDataSetImg(List<Mat> set) {
-        File f = Debug.newPropertyFile("../dataset/");
+        File f = Debug.newPropertyFile("../dataset/digits/new");
         long num = 0;
         if (f.isDirectory()) {
             num = f.listFiles().length;
         }
         long footprint = num;
-        for (Mat m : set) {
+        for (int i = 0; i < set.size(); i++) {
             String path = f.getPath() + "/" + num + ".tif";
-            Imgcodecs.imwrite(path, m);
+            Imgcodecs.imwrite(path, set.get(i));
             ++num;
         }
         System.err.println("Image data has been created to train from " + footprint + " - " + (num-1) + ".tif!");
@@ -52,16 +53,21 @@ public class DataSet {
 
     static class Producer extends CVRegion {
 
+        protected Mat bgrMat;
+
         public Producer(Mat graySrc) {
             super(graySrc);
+            bgrMat = null;
+        }
+        public Producer(Mat graySrc, Mat bgrMat) {
+            super(graySrc);
+            this.bgrMat = bgrMat;
         }
 
         @Override
         protected void paintDigits(List<Integer> cuttingList) {
             Mat digits;
-            if (getFontType() == CardFonts.FontType.BLACK_FONT)
-                digits = getBinDigitRegion();
-            else digits = new Mat(grayMat, rectOfDigitRow);
+            digits = new Mat(bgrMat == null ? grayMat : bgrMat, rectOfDigitRow);
 //            Debug.imshow(CardFonts.fontTypeToString(getFontType()), digits);
             Rect cutter = new Rect(0, 0, 0, rectOfDigitRow.height);
             for (int i = 1; i < cuttingList.size(); i++) {
@@ -76,7 +82,7 @@ public class DataSet {
         }
     }
 
-    public static Rect findMainRect(Producer producer) {
+    public static Rect findMainRect(Producer producer, String fileName) {
         boolean findBright = false;
         Mat gray = producer.grayMat;
         Rect bestRect = new Rect();
@@ -84,9 +90,12 @@ public class DataSet {
         boolean chose;
         for ( ; ; findBright = true) {
             Mat dilate = CVDilate.fastDilate(gray, findBright);
+//            Debug.imshow(fileName + "[gray]", gray);
+//            Debug.imshow(fileName, dilate);
             Rect idRect = null;
             chose = false;
             try {
+//                Mat temp = CVGrayTransfer.resizeMat(fileName, false);
                 idRect = producer.digitRegion(dilate);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -101,6 +110,7 @@ public class DataSet {
                 if (chose) {
                     bestRect = idRect;
                 }
+//                Debug.imshow("idRect", new Mat(gray, idRect));
             }
             if (findBright) break;
         }
@@ -108,30 +118,46 @@ public class DataSet {
             System.err.println("OCR Failed.");
             exit(1);
         }
+//        Debug.imshow("best", new Mat(gray, bestRect));
         return bestRect;
     }
 
     public static void main(String []args) {
         String files[] = {
-                "F.jpg",
+                "B2.jpg",
+                "A.jpg",
+                "B.jpg",
+                "Credit.jpg",
+                "A.jpg",
+                "A2.jpg",
                 "Credit3.jpg",
-                "crop.jpg",
+                "B.jpg",
+                "L.jpg",
+                "C.jpg",
+                "Debit.jpg",
+                "G.jpg",
                 "E.jpg",
                 "O.jpg",
+                "F.jpg",
+                "crop.jpg",
                 "P.jpg",
-                "H.jpg"
         };
         for (String fileName : files) {
             Debug.s();
             Mat gray = CVGrayTransfer.grayTransferBeforeScale(fileName, false);
             Debug.log("gray.width = " + gray.cols() + ", gray.height = " + gray.rows());
-            Producer producer = new Producer(gray);
-            Rect mainRect = findMainRect(producer);
+            Producer producer = new Producer(gray, CVGrayTransfer.resizeMat(fileName, false));
+            Rect mainRect = findMainRect(producer, fileName);
             producer.setRectOfDigitRow(mainRect);
             List<Mat> normalizedImg = null;
             try {
                 producer.digitSeparate();
-                normalizedImg = resizeDataSetImg(producer.getMatListOfDigit());
+                Mat dst = producer.getMatListOfDigit().get(0).clone();
+                if (producer.getFontType() == CardFonts.FontType.LIGHT_FONT) {
+                    normalizedImg = resizeDataSetImg(producer.getMatListOfDigit());
+                    Core.vconcat(normalizedImg, dst);
+                }
+//                Debug.imshow("concat", dst);
                 /**
                  * debug
                 Mat dst = new Mat();
@@ -141,7 +167,7 @@ public class DataSet {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            writeDataSetImg(normalizedImg);
+//            writeDataSetImg(normalizedImg); // write out data to training
             try {
                 Debug.e();
             } catch (Exception e) {
@@ -173,6 +199,27 @@ public class DataSet {
             e.printStackTrace();
         }
         exit(1);
+    }
+
+    public static void classify(Mat ipt) {
+        File[] digits = Debug.newPropertyFile("../dataset/digits").listFiles();
+        double maxScore = 0;
+        String result = null;
+        for (File digit : digits) {
+            String path = digit.getAbsolutePath();
+            Mat digitMat = Imgcodecs.imread(path);
+            digitMat = CVGrayTransfer.grayTransfer(digitMat);
+            Mat outMat = new Mat();
+            Imgproc.matchTemplate(ipt, digitMat, outMat, Imgproc.TM_CCOEFF);
+            Core.MinMaxLocResult mmlResult = Core.minMaxLoc(outMat);
+            if (maxScore < mmlResult.maxVal) {
+                result = path.substring(path.indexOf(".tif") - 1).substring(0, 1);
+                maxScore = mmlResult.maxVal;
+            }
+        }
+        System.out.println(result);
+        Debug.imshow("score:" + maxScore, ipt);
+
     }
 
 }

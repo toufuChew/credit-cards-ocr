@@ -64,14 +64,12 @@ public class CVMain {
                 }
 
                 @Override
-                public int IDRegionSimilarity(Rect roi, int rows, int cols) {
+                public int IDRegionSimilarity(Mat m, Rect roi, int rows, int cols) {
                     return 0;
                 }
 
                 @Override
-                public Rect findMaxRect(Mat m) {
-                    return null;
-                }
+                public void findMaxRect(Mat m, Rect roi) {}
             });
             // draw all rect
             CVCluster.helper.writeFile(out, SysAsset.debugPath() + "Cluster_Rect_Area_" + fileName.substring(0, fileName.indexOf('.')) + ".jpg");

@@ -37,8 +37,8 @@ public class TessReg {
 
 //        String whiteList = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz/ ";
 //        mTess.SetVariable("tessedit_char_whitelist", whiteList);
-//        String whiteListOfNumber = "1234567890";
-//        mTess.SetVariable("tessedit_char_whitelist", whiteListOfNumber);
+        String whiteListOfNumber = "1234567890";
+        mTess.SetVariable("tessedit_char_whitelist", whiteListOfNumber);
     }
 
     /**

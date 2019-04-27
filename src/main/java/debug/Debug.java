@@ -1,23 +1,20 @@
 package debug;
 
-import imgUtil.AbstractUtils;
-import org.opencv.core.Mat;
+import cv.imgutils.AbstractCVUtils;
+import org.opencv.core.*;
 import org.opencv.highgui.HighGui;
+import org.opencv.imgproc.Imgproc;
 
+import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by chenqiu on 10/31/18.
  */
-public final class Debug extends AbstractUtils{
-
-    final static String DEBUG_DIR = "debug/";
+public final class Debug extends AbstractCVUtils {
 
     /**
      * debug code running time
@@ -32,10 +29,9 @@ public final class Debug extends AbstractUtils{
      * @param image
      * @throws IOException
      */
-    @Override
     public void writeImage(String path, BufferedImage image) throws IOException {
         File f = newPropertyDebugFile(path);
-        super.writeImage(f.getAbsolutePath(), image);
+        ImageIO.write(image, path.split("\\.")[1], f);
     }
 
     /**
@@ -109,5 +105,41 @@ public final class Debug extends AbstractUtils{
             HighGui.imshow(s[i], m[i]);
         }
         HighGui.waitKey();
+    }
+
+    @Override
+    public void writeFile(File f, String absolutePath) {
+    }
+
+
+    @Override
+    public Mat pickRectROI(Mat mat0, int n) {
+        Mat color = grayToBGR(mat0);
+        List<MatOfPoint> contours = new ArrayList<>();
+        Imgproc.findContours(mat0, contours, new Mat(), Imgproc.RETR_EXTERNAL, Imgproc.CHAIN_APPROX_SIMPLE);
+        Collections.sort(contours, new Comparator<MatOfPoint>() {
+            @Override
+            public int compare(MatOfPoint o1, MatOfPoint o2) {
+                return -((int) (Imgproc.contourArea(o1) - Imgproc.contourArea(o2))); // decrease
+            }
+        });
+        int count = n > 0 ? n : contours.size();
+        for (MatOfPoint cnt : contours) {
+            if (count-- == 0) break;
+            Rect r = Imgproc.boundingRect(cnt);
+            Imgproc.rectangle(color, new Point(r.x, r.y), new Point(r.x + r.width, r.y + r.height), new Scalar(0, 0, 255), 2);
+        }
+        return color;
+    }
+
+    /**
+     * paint rect of contours
+     * @param title
+     * @param mat0
+     * @param pickContours number of contour to display
+     */
+    public static void pickRectROI(String title, Mat mat0, int pickContours) {
+        Debug debug = new Debug();
+        imshow(title, debug.pickRectROI(mat0, pickContours));
     }
 }

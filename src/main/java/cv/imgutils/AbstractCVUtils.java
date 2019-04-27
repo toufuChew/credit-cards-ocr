@@ -1,9 +1,12 @@
 package cv.imgutils;
 
+import org.opencv.core.CvType;
 import org.opencv.core.Mat;
 import org.opencv.core.Size;
 import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.Imgproc;
+
+import java.io.File;
 
 /**
  * Created by chenqiu on 11/26/18.
@@ -19,6 +22,23 @@ public abstract class AbstractCVUtils implements SysAsset{
     }
 
     /**
+     * <tt>for <strong>origin</strong> image file</tt>
+     * @param fileName
+     * @return
+     */
+    public static File newPropertyFile(String fileName){
+        return new File(System.getProperty(DIR_PROPETY) + RELATIVE_DIR + fileName);
+    }
+
+    /**
+     * <tt>for <strong>debug</strong> image file</tt>
+     * @param fileName
+     * @return
+     */
+    public static File newPropertyDebugFile(String fileName){
+        return new File(System.getProperty(DIR_PROPETY) + DEBUG_DIR + fileName);
+    }
+    /**
      * 加载绝对路径的图片文件
      * @param absolutePath
      * @return
@@ -32,7 +52,7 @@ public abstract class AbstractCVUtils implements SysAsset{
      * @param src
      * @param absolutePath absolutePath or file name xxx.jpg etc.
      */
-    public void writeFile(Mat src, String absolutePath){
+    public static void writeFile(Mat src, String absolutePath){
         // is file name
         if (absolutePath.indexOf('/') == -1){
             absolutePath = System.getProperty(DIR_PROPETY) + DEBUG_DIR + absolutePath;
@@ -57,4 +77,12 @@ public abstract class AbstractCVUtils implements SysAsset{
         }
         return dst;
     }
+
+    public static Mat grayToBGR(Mat mat0) {
+        Mat color = new Mat(mat0.size(), CvType.CV_8UC3);
+        Imgproc.cvtColor(mat0, color, Imgproc.COLOR_GRAY2BGR);
+        return color;
+    }
+
+    public Mat pickRectROI(Mat mat0, int n) {return null;};
 }

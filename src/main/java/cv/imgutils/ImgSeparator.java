@@ -41,8 +41,10 @@ public abstract class ImgSeparator implements RectSeparator, DigitSeparator{
             Rect ret = new Rect();
             Rect head;
             Rect scan = findEdge(buff, cols, rows, head = stack.remove(0), ret);
+//            Debug.imshow("head", new Mat(src, head));
             if (ret.x > 0 && ret.y > 0) {
                 separates.add(ret);
+//                Debug.imshow("scan", new Mat(src, ret));
             }
             // separate region
             int upper = scan.y - head.y;
@@ -56,18 +58,11 @@ public abstract class ImgSeparator implements RectSeparator, DigitSeparator{
 
         }
         return separates;
-//        drawLine(buff, edge.y * cols, cols);
-//        drawLine(buff, (edge.y + edge.height) * cols, cols);
-//        byte out[] = new byte[src.cols() * src.rows()];
-//        System.arraycopy(buff, edge.y * cols, out, edge.y * cols, edge.height * cols);
-//        Mat m = Mat.zeros(src.size(), src.type());
-//        m.put(0, 0, out);
-//        return m;
     }
 
     /**
      * return rect scanned bounding, remove it for avoiding scanning overtimes
-     * <p>if find failed, out.x = out.y = -1</p>
+     * <p>if finding failed, out.x = out.y = -1</p>
      * @param buff
      * @param cols
      * @param rows
@@ -88,43 +83,61 @@ public abstract class ImgSeparator implements RectSeparator, DigitSeparator{
         int len = 0; // length of the line
         for (int i = region.y; i < h; i++) {
             int tLen = 0;
-            for (int j = region.x; j < w; j++) {
+            int start = 0;
+            int gap = 0;
+            for (int j = 0; j < cols; j++) {
                 int index = i * cols + j;
-                if (buff[index] == 0) {
-                    tLen = 0;
-                } else {
-                    ++tLen;
-                }
-                if (tLen > len) {
-                    len = tLen;
-                    pivot[0] = j - len + 1; // start x-pos
-                    pivot[1] = i;
-                    pivot[2] = len;
+                if (buff[index] != 0) {
+                    if (tLen++ == 0)
+                        start = j;
+                    if (tLen > len) {
+                        len = tLen;
+                        pivot[0] = start; // start x-pos
+                        pivot[1] = i;
+                        pivot[2] = j; // end x-pos
+                    }
+                    gap = 0;
+                } else if (++gap > RectFilter.MIN_WIDTH_RATE * cols) {
+                        tLen = 0;
                 }
             }
         }
-//        Debug.log("line: " + pivot[2] + ", thresh: " + (cols * (RectFilter.MIN_WIDTH_RATE * 3)));
-        if (pivot[2] < cols * (RectFilter.MIN_WIDTH_RATE * 3)) { // too short
+        /**
+         * paint pivot line
+        Imgproc.line(color, new Point(pivot[0], pivot[1]),
+                new Point(pivot[2], pivot[1]), new Scalar(0,0,255), 2);
+        Debug.imshow("line", color);
+         **/
+        int line = pivot[2] - pivot[0];
+//        Debug.log("start: " + pivot[0] + ", end: " + pivot[2]);
+//        Debug.log("line: " + len + ", thresh: " + (cols * (RectFilter.MIN_WIDTH_RATE * 3)));
+        if (len < cols * (RectFilter.MIN_WIDTH_RATE * 3)) { // too short
             return region.clone();
         }
 
         int upperY, lowerY, cnt;
         upperY = lowerY = cnt = 0;
-        int []ha = new int[len];
-        for (int i = 0; i < len; i++) {
+        int []ha = new int[line];
+        for (int i = 0; i < line; i++) {
             ha[i] = extendHeight(buff, cols,i + pivot[0], pivot[1]);
         }
 
         final int normalH = (int)(RectFilter.MAX_HEIGHT_RATE * rows);
-        // when continuous thin area is to long, assert fail
+        // when continuous thin area is too long, assert fail
         final int thinW = (int)(RectFilter.MIN_WIDTH_RATE * len);
         final int normalW = (int)(0.1 * len);
-        int cw = 0; // continuous width
+        int cw = 0; // continuous width that fitted normal height
         int ctl = 0; // continuous thin len
-        int y2[][] = new int[2][len];
+        int y2[][] = new int[2][line];
         byte next = -1;
-        for (int c = 0; c < len; c++) {
+        for (int c = 0; c < line; c++) {
             int []ey2 = extendY(buff, cols, c + pivot[0], pivot[1]);
+            /**
+             * paint scan action
+            Imgproc.line(color, new Point(c + pivot[0], ey2[0]),
+                    new Point(c + pivot[0], ey2[1]), new Scalar(0,0,255), 2);
+            Debug.imshow("extend", color);
+             **/
             if (ha[c] < normalH) {
                 if (ha[c] < thinH) {
                     ++ctl;
@@ -149,17 +162,24 @@ public abstract class ImgSeparator implements RectSeparator, DigitSeparator{
             y2[0][c] = ey2[0];
             y2[1][c] = ey2[1];
         }
+//        Debug.log("next=" + next + ", thinW=" + thinW + ", ctl=" + ctl);
         // find median
         Arrays.sort(y2[0]);
         Arrays.sort(y2[1]);
-        int my1, my2, b = len >> 1;
+        int my1, my2, b = y2[0].length >> 1;
         my1 = y2[0][b];
         my2 = y2[1][b];
-        if ((len & 0x1) == 0) {
+        if ((y2[0].length & 0x1) == 0) {
             my1 = (y2[0][b] + y2[0][b - 1]) >> 1;
             my2 = (y2[1][b] + y2[1][b - 1]) >> 1;
         }
-
+        /**
+         * paint bounding
+        color = Debug.grayToBGR(src);
+        Imgproc.line(color, new Point(pivot[0], my1), new Point(pivot[2], my1), new Scalar(0,0,255),2);
+        Imgproc.line(color, new Point(pivot[0], my2), new Point(pivot[2], my2), new Scalar(0,0,255),2);
+        Debug.imshow("bound", color);
+         **/
         Rect scanRect = new Rect(region.x, my1, region.width, my2 - my1 + 1);
         if (next < 1) {
             return scanRect;
@@ -167,9 +187,9 @@ public abstract class ImgSeparator implements RectSeparator, DigitSeparator{
         upperY /= cnt;
         lowerY /= cnt;
         Debug.log("upper: " + upperY + ", lower: " + lowerY);
-        out.x = region.x;
+        out.x = pivot[0];
         out.y = upperY;
-        out.width = region.width;
+        out.width = line;
         out.height = lowerY - upperY + 1;
         return scanRect;
     }
@@ -222,74 +242,6 @@ public abstract class ImgSeparator implements RectSeparator, DigitSeparator{
         int e = len + xy;
         for (int i = xy; i < e; i++) {
             buff[xy] = 0;
-        }
-    }
-
-    /**
-     * @deprecated as solution space too large
-     * @param cutting
-     */
-    private void localCombine(List<Integer> cutting) {
-        if ((cutting.size() & 0x1) == 1) {
-            System.err.println("ImgSeparator error: cutting.size() cannot be odd number in function combine(List<Integer> c)");
-            System.exit(1);
-        }
-        int cnt = cutting.size() >> 1;
-        int []boxes = {16, 17, 18, 19};
-        final int cap = 3;
-        for (int box : boxes) {
-            int []intervals = new int[box];
-            // all are 0 except the first box
-            if ((cnt - box) % cap != 0)
-                intervals[(cnt - box) / cap] = (cnt - box) % cap;
-            for (int i = (cnt - box) / cap - 1; i >= 0; i--)
-                intervals[i] = cap;
-
-            int saving = 0;
-            while (intervals[0] > 0) {
-                int mv;
-                // scan from right to left
-                for (mv = box - 1; mv > 0; mv--)
-                    if (intervals[mv] != 0)
-                        break;
-                --intervals[mv];
-                if (mv == box - 1) {
-                    saving += intervals[mv];
-                    intervals[mv] = 0;
-                    for (mv = box - 2; mv > 0; mv--)
-                        if (intervals[mv] != 0)
-                            break;
-                    --intervals[mv];
-                    ++saving;
-                }
-                for (saving++, mv++; mv < box; mv++) {
-                    if (intervals[mv] >= cap)
-                        continue;
-                    if (saving <= cap - intervals[mv]) {
-                        intervals[mv] += saving;
-                        saving = 0;
-                        break;
-                    }
-                    saving -= (cap - intervals[mv]);
-                    intervals[mv] = cap;
-                }
-                if (saving > 0) {
-                    for (mv = box - 1; mv > 0 && intervals[mv] != 0; mv--) {
-                        saving += intervals[mv];
-                        intervals[mv] = 0;
-                    }
-                    mv = box;
-                    while (mv > 0 && intervals[--mv] == 0);
-                    intervals[mv] -= 1;
-                    for (saving++, mv++; saving > 0; mv++) {
-                        intervals[mv] = Math.min(saving, cap);
-                        saving -= cap;
-                    }
-                }
-                saving = 0;
-                Debug.log(intervals);
-            }
-            return;
         }
     }
 
@@ -367,7 +319,8 @@ public abstract class ImgSeparator implements RectSeparator, DigitSeparator{
      */
     protected int getDigitWidth(List<Integer> cutting) throws Exception {
         if ((cutting.size() & 0x1) == 1) {
-            throw new Exception("ImgSeparator error: cutting.size() cannot be odd number in function getDigitWidth(List<Integer> c");
+            System.err.println("ImgSeparator error: cutting.size() cannot be odd number in function getDigitWidth(List<Integer> c");
+            cutting.remove(cutting.size() - 1);
         }
         final int window = 5;
         int [][]width = new int[2][cutting.size() >> 1];

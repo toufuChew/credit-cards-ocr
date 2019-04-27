@@ -46,7 +46,7 @@ public class CVFontType {
         Imgproc.medianBlur(bin, bin, 3);
         cardFonts.setFonts(bin);
         int whiteBits = bitwise_sum(bin);
-//        Debug.imshow("", bin);
+//        Debug.imshow("font", bin);
         List<MatOfPoint> contours = new ArrayList<>();
         Imgproc.findContours(bin, contours, new Mat(), Imgproc.RETR_EXTERNAL, Imgproc.CHAIN_APPROX_SIMPLE);
         if (contours.size() == 0) {
@@ -59,15 +59,19 @@ public class CVFontType {
             }
         });
         double maxArea = Imgproc.contourArea(contours.get(0));
-        double minArea = Imgproc.contourArea(contours.get(contours.size() - 1));
+        double minArea = Imgproc.contourArea(contours.get(contours.size() >> 1));
         //origin almost black
         if (whiteBits < cols * rows * ratio)
             return cardFonts;
+        final int checkTimes = 5;
         // too many small debris, it will affect separating character later
-        if (contours.size() > fontSegments)
+        if (contours.size() > fontSegments ||
+                (contours.size() > 1 && contours.size() <= checkTimes << 1)) {
             return cardFonts;
+        }
         if (maxArea * ratio > minArea || maxArea == minArea) { // almost white (> 80%) or contains big white area
             Mat not = new Mat();
+            int oldSize = contours.size();
             Core.bitwise_not(bin, not);
             contours = new ArrayList<>();
             Imgproc.findContours(not, contours, new Mat(), Imgproc.RETR_EXTERNAL, Imgproc.CHAIN_APPROX_SIMPLE);
@@ -78,12 +82,16 @@ public class CVFontType {
                 }
             });
             whiteBits = cols * rows - whiteBits;
-            cardFonts.setFonts(not);
+            if (contours.size() == 1) {
+                cardFonts.setType(CardFonts.FontType.BLACK_FONT);
+                return cardFonts;
+            }
+            if (oldSize < contours.size())
+                cardFonts.setFonts(not);
 //            Debug.imshow("not", not);
         }
-        final int checkTimes = 5;
         // check whether contains large amounts of debris
-        if (contours.size() <= checkTimes * 2 || contours.size() > fontSegments) {
+        if (contours.size() > fontSegments || contours.size() < checkTimes) {
             return cardFonts;
         }
         maxArea = Imgproc.contourArea(contours.get(checkTimes));

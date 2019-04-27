@@ -115,12 +115,15 @@ public class CVRegion extends ImgSeparator {
     @Override
     public void setSingleDigits() throws Exception {
         if (fontType == CardFonts.FontType.BLACK_FONT) {
-            super.setSingleDigits(binDigitRegion);
+//            super.setSingleDigits(binDigitRegion);
+            matListOfDigit.add(new Mat(grayMat, getRectOfDigitRow()).clone());
             return;
         }
         int []x = calcHistOfXY(binDigitRegion, true);
         int cur = 0;
         List<Integer> cutting = new LinkedList<>();
+        if (x[cur] > 0)
+            cutting.add(cur);
         while (true) {
             int next = findNext(x, cur);
             if (next >= x.length)
@@ -259,6 +262,31 @@ public class CVRegion extends ImgSeparator {
             }
             return null;
         }
+
+        public void combineRect(List<Rect> combinedList, Rect input) {
+            int v;
+            for (v = 0; v < combinedList.size(); v++) {
+                Rect cell = combinedList.get(v);
+                int bb = input.y + input.height;
+                if (bb >= cell.y) {
+                    int bc = cell.y + cell.height;
+                    if (bb <= bc) {
+                        cell.y = Math.min(input.y, cell.y);
+                        // update height
+                        cell.height = bc - cell.y;
+                        break;
+                    }
+                    if (input.y <= bc) {
+                        cell.y = Math.min(input.y, cell.y);
+                        // update height
+                        cell.height = bb - cell.y;
+                        break;
+                    }
+                }
+            }
+            if (v == combinedList.size())
+                combinedList.add(input);
+        }
     }
 
     /**
@@ -337,27 +365,35 @@ public class CVRegion extends ImgSeparator {
             });
             final int detectDepth = Math.min(5, contours.size());
             int maxScore = 0;
+            List<Rect> brs = new ArrayList<>();
             for (int t = 0; t < detectDepth; t++) {
                 Rect br = Imgproc.boundingRect(contours.get(t));
-                Debug.log(br);
+                filter.combineRect(brs, br);
+            }
+            // detect region
+            for (Rect br : brs) {
+//                Debug.imshow("br", new Mat(src, br));
                 List<Rect> separates = this.rectSeparate(src, br);
                 for (Rect r : separates) {
                     Mat roi = drawRectRegion(src, r);
-                    Rect maxRect = filter.findMaxRect(roi);
-                    int score = filter.IDRegionSimilarity(maxRect, src.rows(), src.cols());
+//                    Debug.imshow("roi", new Mat(src, r));
+                    filter.findMaxRect(roi, r);
+                    int score = filter.IDRegionSimilarity(roi, r, src.rows(), src.cols());
                     if (score > maxScore) {
                         maxScore = score;
-                        rect = maxRect;
+                        rect = r;
                     }
-                    Debug.log(maxRect + ", score: " + score + ", index: " + t);
+//                    Debug.imshow("roi2", new Mat(src, r));
+//                    Debug.log(r + ", score: " + score);
 //                    Debug.imshow("maxRect", new Mat(src, maxRect));
+//                    Imgproc.rectangle(color, new Point(r.x, r.y), new Point(r.x + r.width, r.y + r.height), new Scalar(0, score == 29110 ? 255: 0, score == 29110 ? 0 : 255), 2);
+//                    Imgproc.putText(color, score+"", new Point(r.x, r.y), Core.FONT_HERSHEY_SIMPLEX, 1, new Scalar(0, score == 29110 ? 255: 0, score == 29110 ? 0 : 255),2);
                 }
-//                Debug.imshow("", new Mat(src, br));
             }
         }
+//        Debug.imshow("ROIs", color);
         if (rect == null)
             return null;
-        Debug.log(rect);
         cutEdgeOfX(rect);
         try {
             Debug.e();
@@ -406,6 +442,7 @@ public class CVRegion extends ImgSeparator {
         super.digitSeparate();
         Mat binDigits = new Mat(grayMat, getRectOfDigitRow()).clone();
         CardFonts fonts = CVFontType.getFontType(binDigits);
+//        Debug.imshow(CardFonts.fontTypeToString(fonts.getType()), binDigits);
         CardFonts.FontType type = fonts.getType();
         if (type == CardFonts.FontType.LIGHT_FONT) {
             Mat sqKernel = Imgproc.getStructuringElement(Imgproc.MORPH_RECT, new Size(5, 5));
@@ -443,7 +480,6 @@ public class CVRegion extends ImgSeparator {
         Imgproc.GaussianBlur(grayMat, dst, new Size(13, 13), 0);
         Imgproc.Canny(dst, dst, 300, 600, 5, true);
         Imgproc.dilate(dst, dst, new Mat(), new Point(-1, -1), 1);
-
         Mat m = new Mat(dst, rect);
         byte buff[] = new byte[m.rows() * m.cols()];
         m.get(0, 0, buff);
