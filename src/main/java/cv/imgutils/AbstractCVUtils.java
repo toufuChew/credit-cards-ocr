@@ -1,5 +1,6 @@
 package cv.imgutils;
 
+import org.opencv.core.CvType;
 import org.opencv.core.Mat;
 import org.opencv.core.Size;
 import org.opencv.imgcodecs.Imgcodecs;
@@ -76,4 +77,12 @@ public abstract class AbstractCVUtils implements SysAsset{
         }
         return dst;
     }
+
+    public static Mat grayToBGR(Mat mat0) {
+        Mat color = new Mat(mat0.size(), CvType.CV_8UC3);
+        Imgproc.cvtColor(mat0, color, Imgproc.COLOR_GRAY2BGR);
+        return color;
+    }
+
+    public Mat pickRectROI(Mat mat0, int n) {return null;};
 }

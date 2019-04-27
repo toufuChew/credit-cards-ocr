@@ -122,6 +122,8 @@ public class CVRegion extends ImgSeparator {
         int []x = calcHistOfXY(binDigitRegion, true);
         int cur = 0;
         List<Integer> cutting = new LinkedList<>();
+        if (x[cur] > 0)
+            cutting.add(cur);
         while (true) {
             int next = findNext(x, cur);
             if (next >= x.length)
@@ -384,11 +386,12 @@ public class CVRegion extends ImgSeparator {
 //                    Debug.imshow("roi2", new Mat(src, r));
 //                    Debug.log(r + ", score: " + score);
 //                    Debug.imshow("maxRect", new Mat(src, maxRect));
-//                    Imgproc.rectangle(grayMat, new Point(r.x, r.y), new Point(r.x + r.width, r.y + r.height), new Scalar(0, 0, 255), 1);
+//                    Imgproc.rectangle(color, new Point(r.x, r.y), new Point(r.x + r.width, r.y + r.height), new Scalar(0, score == 29110 ? 255: 0, score == 29110 ? 0 : 255), 2);
+//                    Imgproc.putText(color, score+"", new Point(r.x, r.y), Core.FONT_HERSHEY_SIMPLEX, 1, new Scalar(0, score == 29110 ? 255: 0, score == 29110 ? 0 : 255),2);
                 }
             }
         }
-//        Debug.imshow("region-detection", grayMat);
+//        Debug.imshow("ROIs", color);
         if (rect == null)
             return null;
         cutEdgeOfX(rect);
@@ -438,7 +441,6 @@ public class CVRegion extends ImgSeparator {
     public void digitSeparate() throws Exception {
         super.digitSeparate();
         Mat binDigits = new Mat(grayMat, getRectOfDigitRow()).clone();
-        Debug.writeFile(binDigits, "Cluster.tif");
         CardFonts fonts = CVFontType.getFontType(binDigits);
 //        Debug.imshow(CardFonts.fontTypeToString(fonts.getType()), binDigits);
         CardFonts.FontType type = fonts.getType();
@@ -465,15 +467,6 @@ public class CVRegion extends ImgSeparator {
         }
         this.binDigitRegion = binDigits;
         this.fontType = type;
-        Mat color = new Mat(binDigits.size(), CvType.CV_8UC3);
-        Imgproc.cvtColor(binDigits, color, Imgproc.COLOR_GRAY2BGR);
-        List<MatOfPoint> cnts = new ArrayList<>();
-        Imgproc.findContours(binDigits, cnts, new Mat(), Imgproc.RETR_EXTERNAL, Imgproc.CHAIN_APPROX_SIMPLE);
-        for (MatOfPoint cnt : cnts) {
-            Rect r = Imgproc.boundingRect(cnt);
-            Imgproc.rectangle(color, new Point(r.x, r.y), new Point(r.x + r.width, r.y + r.height), new Scalar(0, 0, 255), 1);
-        }
-        Debug.imshow("color", color);
 //        Debug.imshow(CardFonts.fontTypeToString(fonts.getType()), binDigits);
         setSingleDigits();
     }

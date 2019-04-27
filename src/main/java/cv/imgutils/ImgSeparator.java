@@ -102,6 +102,12 @@ public abstract class ImgSeparator implements RectSeparator, DigitSeparator{
                 }
             }
         }
+        /**
+         * paint pivot line
+        Imgproc.line(color, new Point(pivot[0], pivot[1]),
+                new Point(pivot[2], pivot[1]), new Scalar(0,0,255), 2);
+        Debug.imshow("line", color);
+         **/
         int line = pivot[2] - pivot[0];
 //        Debug.log("start: " + pivot[0] + ", end: " + pivot[2]);
 //        Debug.log("line: " + len + ", thresh: " + (cols * (RectFilter.MIN_WIDTH_RATE * 3)));
@@ -126,6 +132,12 @@ public abstract class ImgSeparator implements RectSeparator, DigitSeparator{
         byte next = -1;
         for (int c = 0; c < line; c++) {
             int []ey2 = extendY(buff, cols, c + pivot[0], pivot[1]);
+            /**
+             * paint scan action
+            Imgproc.line(color, new Point(c + pivot[0], ey2[0]),
+                    new Point(c + pivot[0], ey2[1]), new Scalar(0,0,255), 2);
+            Debug.imshow("extend", color);
+             **/
             if (ha[c] < normalH) {
                 if (ha[c] < thinH) {
                     ++ctl;
@@ -161,7 +173,13 @@ public abstract class ImgSeparator implements RectSeparator, DigitSeparator{
             my1 = (y2[0][b] + y2[0][b - 1]) >> 1;
             my2 = (y2[1][b] + y2[1][b - 1]) >> 1;
         }
-
+        /**
+         * paint bounding
+        color = Debug.grayToBGR(src);
+        Imgproc.line(color, new Point(pivot[0], my1), new Point(pivot[2], my1), new Scalar(0,0,255),2);
+        Imgproc.line(color, new Point(pivot[0], my2), new Point(pivot[2], my2), new Scalar(0,0,255),2);
+        Debug.imshow("bound", color);
+         **/
         Rect scanRect = new Rect(region.x, my1, region.width, my2 - my1 + 1);
         if (next < 1) {
             return scanRect;
@@ -301,7 +319,8 @@ public abstract class ImgSeparator implements RectSeparator, DigitSeparator{
      */
     protected int getDigitWidth(List<Integer> cutting) throws Exception {
         if ((cutting.size() & 0x1) == 1) {
-            throw new Exception("ImgSeparator error: cutting.size() cannot be odd number in function getDigitWidth(List<Integer> c");
+            System.err.println("ImgSeparator error: cutting.size() cannot be odd number in function getDigitWidth(List<Integer> c");
+            cutting.remove(cutting.size() - 1);
         }
         final int window = 5;
         int [][]width = new int[2][cutting.size() >> 1];
