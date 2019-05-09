@@ -183,7 +183,7 @@ public class CVRegion extends ImgSeparator {
         }
 
         /**
-         * get rect area of id numbers
+         * get rect area of id numbers, only work at the 4-4-4-4 type
          * @param contours
          * @return null if rect of id area not found
          */
