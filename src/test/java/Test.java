@@ -14,18 +14,8 @@ public class Test {
 
         // 加载
         System.loadLibrary( Core.NATIVE_LIBRARY_NAME );
-
-        // OpenCV Code ...
-        Mat src = Imgcodecs.imread("/Users/chenqiu/IdeaProjects/CardIDRecognition/res/img/origin/Credit.jpeg",
-                Imgcodecs.CV_LOAD_IMAGE_GRAYSCALE);
-
-        Mat dst = new Mat();
-
-        Imgproc.adaptiveThreshold(src, dst, 255, Imgproc.ADAPTIVE_THRESH_MEAN_C,
-                Imgproc.THRESH_BINARY_INV, 31, 5);
         /**
-         * //https://my.oschina.net/u/3767256/blog/1802849
+         * refer to DataSet
          */
-        Imgcodecs.imwrite("/Users/chenqiu/IdeaProjects/CardIDRecognition/res/img/debug/Cluster.jpg", dst);
     }
 }

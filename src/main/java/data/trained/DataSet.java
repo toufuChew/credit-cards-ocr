@@ -17,6 +17,8 @@ import static java.lang.System.exit;
 
 /**
  * Created by chenqiu on 3/11/19.
+ *
+ * main method
  */
 public class DataSet {
 
@@ -124,6 +126,9 @@ public class DataSet {
 
     public static void main(String []args) {
         String files[] = {
+                "1556329963986.jpg",
+                "1556330116077.jpg",
+                "1556330682287.jpg",
                 "B2.jpg",
                 "A.jpg",
                 "B.jpg",
