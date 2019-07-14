@@ -82,50 +82,52 @@ public class DataSet {
                 matListOfDigit.add(new Mat(digits, new Rect(x1, ofY.y, cutter.width, ofY.height)));
             }
         }
-    }
 
-    public static Rect findMainRect(Producer producer, String fileName) {
-        boolean findBright = false;
-        Mat gray = producer.grayMat;
-        Rect bestRect = new Rect();
-        final float fullWidth = gray.cols() - Producer.border * 2;
-        boolean chose;
-        for ( ; ; findBright = true) {
-            Mat dilate = CVDilate.fastDilate(gray, findBright);
+        public Rect findMainRect() {
+            boolean findBright = false;
+            Mat gray = this.grayMat;
+            Rect bestRect = new Rect();
+            final float fullWidth = gray.cols() - Producer.border * 2;
+            boolean chose;
+            for ( ; ; findBright = true) {
+                Mat dilate = CVDilate.fastDilate(gray, findBright);
 //            Debug.imshow(fileName + "[gray]", gray);
 //            Debug.imshow(fileName, dilate);
-            Rect idRect = null;
-            chose = false;
-            try {
+                Rect idRect = null;
+                chose = false;
+                try {
 //                Mat temp = CVGrayTransfer.resizeMat(fileName, false);
-                idRect = producer.digitRegion(dilate);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            if (idRect != null) {
-                if (bestRect.width == 0)
-                    chose = true;
-                else if (idRect.width < fullWidth) {
-                    if (bestRect.width == fullWidth || idRect.width > bestRect.width)
+                    idRect = this.digitRegion(dilate);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                if (idRect != null) {
+                    if (bestRect.width == 0)
                         chose = true;
-                }
-                if (chose) {
-                    bestRect = idRect;
-                }
+                    else if (idRect.width < fullWidth) {
+                        if (bestRect.width == fullWidth || idRect.width > bestRect.width)
+                            chose = true;
+                    }
+                    if (chose) {
+                        bestRect = idRect;
+                    }
 //                Debug.imshow("idRect", new Mat(gray, idRect));
+                }
+                if (findBright) break;
             }
-            if (findBright) break;
-        }
-        if (bestRect.width == 0) {
-            System.err.println("OCR Failed.");
-            exit(1);
-        }
+            if (bestRect.width == 0) {
+                System.err.println("OCR Failed.");
+                exit(1);
+            }
 //        Debug.imshow("best", new Mat(gray, bestRect));
-        return bestRect;
+            return bestRect;
+        }
     }
+
 
     public static void main(String []args) {
         String files[] = {
+                "20190427173208.png",
                 "1556329963986.jpg",
                 "1556330116077.jpg",
                 "1556330682287.jpg",
@@ -152,7 +154,7 @@ public class DataSet {
             Mat gray = CVGrayTransfer.grayTransferBeforeScale(fileName, false);
             Debug.log("gray.width = " + gray.cols() + ", gray.height = " + gray.rows());
             Producer producer = new Producer(gray, CVGrayTransfer.resizeMat(fileName, false));
-            Rect mainRect = findMainRect(producer, fileName);
+            Rect mainRect = producer.findMainRect();
             producer.setRectOfDigitRow(mainRect);
             List<Mat> normalizedImg = null;
             try {
